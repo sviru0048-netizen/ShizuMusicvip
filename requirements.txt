@@ -1,0 +1,12 @@
+py-yt-search
+py-tgcalls==2.2.5
+pyrogram==2.0.106
+aiohttp
+aiofiles
+flask
+tgcrypto
+isodate
+psutil
+python-dotenv
+pymongo
+ffmpeg-python

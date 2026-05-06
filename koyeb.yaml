@@ -1,0 +1,14 @@
+name: ShizuMusic
+services:
+  - name: bot
+    type: worker
+    git:
+      branch: main
+    run: python main.py
+    env:
+      - API_ID
+      - API_HASH
+      - BOT_TOKEN
+      - STRING_SESSION
+      - MONGO_DB_URL
+      - OWNER_ID
