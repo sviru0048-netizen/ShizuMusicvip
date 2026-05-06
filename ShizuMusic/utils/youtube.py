@@ -1,11 +1,3 @@
-"""
-ShizuMusic/utils/youtube.py
-
-Search  → py-yt-search (metadata only, no cookies needed)
-Stream  → Shruti API  (shrutibots.site) — no yt-dlp, no cookie errors
-Cache   → in-memory  (video_id → local .mp3 path)
-"""
-
 import asyncio
 import logging
 import os
@@ -137,16 +129,6 @@ async def _download_via_shruti(video_id: str, file_path: str) -> bool:
 # ═════════════════════════════════════════════════════════════════════════════
 
 async def resolve_stream(url: str) -> str:
-    """
-    Given a YouTube URL (or local file path), return a local .mp3 path
-    ready for PyTgCalls.
-
-    Priority:
-      1. Already a local file → return as-is
-      2. In-memory cache hit  → return cached path
-      3. File exists on disk  → return & warm cache
-      4. Download via Shruti API
-    """
     # Already a local file (e.g. Telegram audio download)
     if os.path.exists(url) and os.path.isfile(url):
         return url
@@ -180,14 +162,6 @@ async def resolve_stream(url: str) -> str:
 # ═════════════════════════════════════════════════════════════════════════════
 
 async def search_yt(query: str):
-    """
-    Search YouTube for metadata only (no direct streaming, no cookies).
-    Actual audio is fetched later via resolve_stream() → Shruti API.
-
-    Returns:
-        dict  {"playlist": [...]}          for playlist URLs
-        tuple (url, title, dur_iso, thumb) for single tracks
-    """
 
     # ── Playlist ──────────────────────────────────────────────────────────────
     if "playlist?list=" in query or "&list=" in query:
