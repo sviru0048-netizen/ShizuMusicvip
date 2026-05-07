@@ -26,7 +26,7 @@ async def _update_progress(
     btns = [
         InlineKeyboardButton("▷", callback_data="resume"),
         InlineKeyboardButton("II",  callback_data="pause"),
-        InlineKeyboardButton("⏭",  callback_data="skip"),
+        InlineKeyboardButton("‣‣I",  callback_data="skip"),
         InlineKeyboardButton("▢",  callback_data="stop"),
     ]
     while True:
@@ -98,7 +98,7 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
     btns = [
         InlineKeyboardButton("▷", callback_data="resume"),
         InlineKeyboardButton("II",  callback_data="pause"),
-        InlineKeyboardButton("⏭",  callback_data="skip"),
+        InlineKeyboardButton("‣‣I",  callback_data="skip"),
         InlineKeyboardButton("▢",  callback_data="stop"),
     ]
     bar = progress_bar(0, total)
