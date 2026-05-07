@@ -39,7 +39,6 @@ async def broadcast_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ</b>
-
 <b>❍ ᴛʜᴇɴ ᴜsᴇ /broadcast.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -55,7 +54,6 @@ async def broadcast_cmd(_, message: Message) -> None:
     processing = await message.reply(
         """
 <b>❍ ʙʀᴏᴀᴅᴄᴀsᴛ sᴛᴀʀᴛᴇᴅ</b>
-
 <b>❍ sᴇɴᴅɪɴɢ ᴍᴇssᴀɢᴇs...</b>
 """,
         parse_mode=ParseMode.HTML,
@@ -84,7 +82,6 @@ async def broadcast_cmd(_, message: Message) -> None:
     await processing.edit_text(
         f"""
 <b>❍ ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</b>
-
 <b>❍ sᴜᴄᴄᴇss :</b> <code>{success}</code>
 <b>❍ ғᴀɪʟᴇᴅ :</b> <code>{failed}</code>
 """,
