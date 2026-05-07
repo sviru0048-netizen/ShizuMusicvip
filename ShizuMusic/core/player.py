@@ -51,10 +51,7 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
 
     # Loading indicator
     loading_text = (
-        "<b>╭────────────────────▣</b>\n"
-        f"<b>│❍ ʟᴏᴀᴅɪɴɢ :</b> {short(song['title'])}\n"
-        "<b>│❍ sᴇʀᴠᴇʀ ᴡᴀʀᴍɪɴɢ ᴜᴩ…</b>\n"
-        "<b>╰────────────────────▣</b>"
+        "<b>│❍ ʟᴏᴀᴅɪɴɢ :</b> {short(song['title'])}"
     )
     try:
         await message.edit(loading_text, parse_mode=ParseMode.HTML)
