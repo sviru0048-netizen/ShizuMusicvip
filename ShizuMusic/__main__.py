@@ -1,7 +1,3 @@
-"""
-ShizuMusic/__main__.py
-Entry point — starts Flask health server, assistant, bot, and PyTgCalls.
-"""
 import asyncio
 import importlib
 import os
@@ -18,9 +14,7 @@ from pyrogram.types import BotCommand
 import config
 from ShizuMusic import LOGGER, assistant, bot, call_py
 from ShizuMusic.modules import ALL_MODULES
-
-# Shared assistant username (set at startup, read by modules)
-ASSISTANT_USERNAME: str = ""
+ASSISTANT_USERNAME = am.username
 
 # ── Flask health check ────────────────────────────────────────────────────────
 
