@@ -8,7 +8,6 @@ ALL_MODULES = [
     "stop",
     "ping",
     "broadcast",
-    "moderation",
     "callbacks",
     "start",
 ]
