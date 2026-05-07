@@ -7,6 +7,7 @@ import threading
 import time
 from collections import deque
 
+import requests
 from flask import Flask
 from pyrogram import idle
 from pyrogram.types import BotCommand
@@ -35,6 +36,20 @@ def _health():
 
 def _run_flask() -> None:
     _flask.run(host="0.0.0.0", port=config.PORT, use_reloader=False)
+
+
+# ── Keep-Alive Ping ───────────────────────────────────────────────────────────
+
+def _keep_alive() -> None:
+    """Ping own Render URL every 5 minutes so the service never sleeps."""
+    url = "https://shizumusicbot-w7jq.onrender.com"
+    while True:
+        try:
+            requests.get(url, timeout=10)
+            LOGGER.info(f"Keep-alive ping sent → {url}")
+        except Exception as e:
+            LOGGER.warning(f"Keep-alive ping failed: {e}")
+        time.sleep(300)  # 5 minutes
 
 
 # ── Watchdog ──────────────────────────────────────────────────────────────────
@@ -81,7 +96,7 @@ async def _watchdog() -> None:
             os._exit(0)
 
 
-# ── Startup ───────────────────────────────────────────────────────────────────
+# ── Startup notification ──────────────────────────────────────────────────────
 
 async def _notify_owner(me, assistant_username: str) -> None:
     """Send startup notification to the logger chat."""
@@ -95,17 +110,23 @@ async def _notify_owner(me, assistant_username: str) -> None:
         LOGGER.info("Could not DM owner — start bot once in PM.")
 
 
+# ── Main ──────────────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
 
     # 1. Flask
     threading.Thread(target=_run_flask, daemon=True).start()
     LOGGER.info(f"Flask health server on port {config.PORT}")
 
-    # 2. PyTgCalls
+    # 2. Keep-alive ping
+    threading.Thread(target=_keep_alive, daemon=True).start()
+    LOGGER.info("Keep-alive thread started")
+
+    # 3. PyTgCalls
     call_py.start()
     LOGGER.info("PyTgCalls started")
 
-    # 3. Bot start (with FLOOD_WAIT retry)
+    # 4. Bot start (with FLOOD_WAIT retry)
     for attempt in range(10):
         try:
             bot.start()
@@ -140,7 +161,7 @@ if __name__ == "__main__":
     me = bot.get_me()
     LOGGER.info(f"Bot: @{me.username}")
 
-    # 4. Set bot commands
+    # 5. Set bot commands
     try:
         bot.set_bot_commands(
             [
@@ -160,7 +181,7 @@ if __name__ == "__main__":
     except Exception as e:
         LOGGER.warning(f"Could not set bot commands: {e}")
 
-    # 5. Assistant
+    # 6. Assistant
     try:
         if not assistant.is_connected:
             assistant.start()
@@ -175,7 +196,7 @@ if __name__ == "__main__":
         LOGGER.error(f"Assistant start failed: {e}")
         sys.exit(1)
 
-    # 6. Load modules
+    # 7. Load modules
     for mod in ALL_MODULES:
         try:
             importlib.import_module(f"ShizuMusic.modules.{mod}")
@@ -190,11 +211,11 @@ if __name__ == "__main__":
     except Exception as e:
         LOGGER.error(f"Failed to load call handler: {e}")
 
-    # 7. Notify owner (async call via event loop)
+    # 8. Notify owner
     loop = asyncio.get_event_loop()
     loop.run_until_complete(_notify_owner(me, ASSISTANT_USERNAME))
 
-    # 8. Watchdog
+    # 9. Watchdog
     loop.create_task(_watchdog())
 
     LOGGER.info("✅ ShizuMusic is running")
