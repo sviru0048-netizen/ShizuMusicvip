@@ -1,2 +1,163 @@
-𝐎𝐧𝐞-𝐂𝐥𝐢𝐜𝐤 𝐃𝐞𝐩𝐥𝐨𝐲 |
-| **𝐑𝐞𝐧𝐝𝐞𝐫** | [![Deploy](https://img.shields.io/badge/Deploy%20On%20Render-black?style=for-the-badge&logo=render)](https://render.com/deploy?repo=https://github.com/Badmunda05/ShizuMusic)
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&weight=900&size=36&duration=3000&pause=1000&color=00BFFF&center=true&vCenter=true&width=700&lines=🎵+ShizuMusic+Bot;First+Open-Source+VC+Music+Bot;Fast+•+Smooth+•+Powerful" alt="ShizuMusic" />
+
+<br>
+
+<p>
+  <b>First Open-Source Telegram VC Music Bot 🎵</b><br>
+  Works Fully Free on Render, Koyeb & More &nbsp;•&nbsp; Zero VPS Cost<br>
+  Fast • Smooth • Powerful<br>
+  Powered by <b>Pyrogram</b> & <b>Py-TgCalls</b><br>
+  Developed by — <b>PBX</b>
+</p>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+</div>
+
+---
+
+<div align="center">
+
+## 👤 Developer
+
+<img src="https://avatars.githubusercontent.com/Badmunda05" width="110" style="border-radius:50%;" /><br>
+**PBX** — Developer of ShizuMusic<br>
+
+[![Telegram](https://img.shields.io/badge/Telegram-PBX-%2326A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/PBX_BOT)
+[![GitHub](https://img.shields.io/badge/GitHub-Badmunda05-%23181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Badmunda05)
+
+</div>
+
+---
+
+<div align="center">
+
+
+## ✨ Features
+
+- 🎵 High Quality VC Music Streaming
+- 🔁 Queue System with Auto-Play
+- ⏸ Pause / Resume / Skip / Stop Controls
+- 📊 Live Progress Bar in Chat
+- 🌐 Works on Render, Koyeb, Heroku & VPS — Free!
+- ⚡ Fast & Lightweight — Pyrogram + Py-TgCalls
+- 🎧 Audio Quality Control
+- 🔒 Admin-Only Controls
+
+---
+
+## 🚀 Deploy Now
+
+<div align="center">
+
+### ☁️ Heroku
+
+[![Deploy on Heroku](https://img.shields.io/badge/Deploy%20On%20Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/new?template=https://github.com/Badmunda05/ShizuMusic)
+
+---
+
+### 🟢 Koyeb
+
+[![Deploy on Koyeb](https://img.shields.io/badge/Deploy%20On%20Koyeb-121212?style=for-the-badge&logo=koyeb&logoColor=white)](https://app.koyeb.com/deploy?type=git&repository=github.com/Badmunda05/ShizuMusic&branch=main&name=shizumusic)
+
+---
+
+### 🟣 Render
+
+[![Deploy on Render](https://img.shields.io/badge/Deploy%20On%20Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/deploy?repo=https://github.com/Badmunda05/ShizuMusic)
+
+---
+
+### 🔵 Railway
+
+[![Deploy on Railway](https://img.shields.io/badge/Deploy%20On%20Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/new/template?template=https://github.com/Badmunda05/ShizuMusic)
+
+</div>
+
+---
+
+## 🖥️ VPS Deployment (Self-Host)
+
+> Recommended: Ubuntu 20.04+ / Debian 11+
+
+```bash
+# 1. Update system
+sudo apt update && sudo apt upgrade -y
+
+# 2. Install dependencies
+sudo apt install -y python3 python3-pip git ffmpeg
+
+# 3. Clone the repo
+git clone https://github.com/Badmunda05/ShizuMusic
+cd ShizuMusic
+
+# 4. Install Python requirements
+pip3 install -r requirements.txt
+
+# 5. Copy and edit config
+cp sample.env .env
+nano .env
+
+# 6. Run the bot
+python3 -m ShizuMusic
+```
+
+> To keep running after closing terminal:
+```bash
+# Install screen
+sudo apt install screen -y
+
+# Start a screen session
+screen -S shizu
+
+# Run the bot
+python3 -m ShizuMusic
+
+# Detach: Press Ctrl + A then D
+# Reattach later:
+screen -r shizu
+```
+
+---
+
+## ⚙️ Config Variables
+
+| Variable | Description |
+|---|---|
+| `API_ID` | Get from [my.telegram.org](https://my.telegram.org) |
+| `API_HASH` | Get from [my.telegram.org](https://my.telegram.org) |
+| `BOT_TOKEN` | Get from [@BotFather](https://t.me/BotFather) |
+| `SESSION_STRING` | Assistant account Pyrogram session |
+| `MONGO_DB_URI` | MongoDB connection URI |
+| `LOGGER_ID` | Log channel/group ID |
+| `SUPPORT_GROUP` | Your support group link |
+| `PING_IMG_URL` | Image URL for /ping command |
+
+---
+
+## 📦 Requirements
+
+- Python 3.10+
+- MongoDB (free at [mongodb.com](https://mongodb.com))
+- Telegram API credentials
+- A userbot/assistant account (for VC streaming)
+
+---
+
+<div align="center">
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+**Made with ❤️ by PBX — ShizuMusic™**
+
+[![Repo](https://img.shields.io/badge/GitHub-ShizuMusic-181717?style=for-the-badge&logo=github)](https://github.com/Badmunda05/ShizuMusic)
+[![Stars](https://img.shields.io/github/stars/Badmunda05/ShizuMusic?style=for-the-badge&color=yellow)](https://github.com/Badmunda05/ShizuMusic/stargazers)
+[![Forks](https://img.shields.io/github/forks/Badmunda05/ShizuMusic?style=for-the-badge&color=blue)](https://github.com/Badmunda05/ShizuMusic/network/members)
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+</div>
