@@ -1,9 +1,3 @@
-"""
-ShizuMusic/__main__.py
-
-Main startup file for ShizuMusic.
-"""
-
 import asyncio
 import importlib
 import os
@@ -46,7 +40,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return (
-        "✅ ShizuMusic is running!",
+        "❍ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ɪꜱ ʀᴜɴɴɪɴɢ ᴍᴀᴅᴇ ʙʏ ʙᴀᴅᴍᴜɴᴅᴀ 💕",
         200,
     )
 
