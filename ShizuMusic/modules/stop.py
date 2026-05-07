@@ -27,7 +27,6 @@ async def stop_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ᴀᴅᴍɪɴ ᴏɴʟʏ</b>
-
 <b>❍ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ғᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -41,7 +40,6 @@ async def stop_cmd(_, message: Message) -> None:
     await message.reply(
         """
 <b>❍ ᴘʟᴀʏʙᴀᴄᴋ sᴛᴏᴘᴘᴇᴅ</b>
-
 <b>❍ ǫᴜᴇᴜᴇ ᴄʟᴇᴀʀᴇᴅ</b>
 <b>❍ ʟᴇғᴛ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ</b>
 """,
@@ -60,7 +58,6 @@ async def clear_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ᴀᴅᴍɪɴ ᴏɴʟʏ</b>
-
 <b>❍ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ғᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -74,7 +71,6 @@ async def clear_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ǫᴜᴇᴜᴇ ɪs ᴇᴍᴘᴛʏ</b>
-
 <b>❍ ɴᴏ sᴏɴɢs ɪɴ ǫᴜᴇᴜᴇ.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -86,7 +82,6 @@ async def clear_cmd(_, message: Message) -> None:
     await message.reply(
         """
 <b>❍ ǫᴜᴇᴜᴇ ᴄʟᴇᴀʀᴇᴅ</b>
-
 <b>❍ ᴀʟʟ ᴘᴇɴᴅɪɴɢ sᴏɴɢs ʀᴇᴍᴏᴠᴇᴅ.</b>
 """,
         parse_mode=ParseMode.HTML,
@@ -106,7 +101,6 @@ async def reboot_cmd(_, message: Message) -> None:
     await message.reply(
         """
 <b>❍ ᴄʜᴀᴛ ʀᴇʙᴏᴏᴛᴇᴅ</b>
-
 <b>❍ ᴀʟʟ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ sᴛᴀᴛᴇs ʀᴇsᴇᴛ.</b>
 """,
         parse_mode=ParseMode.HTML,
