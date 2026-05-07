@@ -10,10 +10,23 @@ from datetime import timedelta
 import psutil
 from pyrogram import filters
 from pyrogram.enums import ParseMode
-from pyrogram.types import Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 import config
 from ShizuMusic import bot, assistant, bot_start_time
+
+
+def supp_markup():
+    return InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    text="🍬 sᴜᴘᴘᴏꝛᴛ 🍬",
+                    url=config.SUPPORT_GROUP,
+                ),
+            ]
+        ]
+    )
 
 
 @bot.on_message(filters.command("ping"))
@@ -83,9 +96,10 @@ async def ping_cmd(client, message: Message) -> None:
 <b>❍ 𝖡ʏ » <a href="{config.SUPPORT_GROUP}">sʜɪᴢᴜ-ᴍᴜsɪᴄ™</a></b>
 """
 
-    # Send photo with caption
+    # Send photo with caption + support button
     await message.reply_photo(
         photo=config.PING_IMG_URL,
         caption=caption,
         parse_mode=ParseMode.HTML,
+        reply_markup=supp_markup(),
     )
