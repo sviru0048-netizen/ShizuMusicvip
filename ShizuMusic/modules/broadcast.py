@@ -1,7 +1,10 @@
 """
 ShizuMusic/modules/broadcast.py
-/broadcast command — owner only, forward a replied message to all chats.
+
+/broadcast command — owner only.
+Forward a replied message to all saved chats.
 """
+
 import asyncio
 
 from pymongo import MongoClient
@@ -12,32 +15,78 @@ from pyrogram.types import Message
 import config
 from ShizuMusic import bot
 
-_mongo        = MongoClient(config.MONGO_DB_URL)
+
+# ─────────────────────────────────────────────
+# MONGODB
+# ─────────────────────────────────────────────
+_mongo = MongoClient(config.MONGO_DB_URL)
+
 broadcast_col = _mongo["ShizuMusic"]["broadcast"]
 
 
-@bot.on_message(filters.command("broadcast") & filters.user(config.OWNER_ID))
+# ─────────────────────────────────────────────
+# BROADCAST COMMAND
+# ─────────────────────────────────────────────
+@bot.on_message(
+    filters.command("broadcast")
+    & filters.user(config.OWNER_ID)
+)
 async def broadcast_cmd(_, message: Message) -> None:
+
+    # Reply Check
     if not message.reply_to_message:
+
         await message.reply(
-            "<b>❌ ʀᴇᴩʟʏ ᴛᴏ ᴛʜᴇ ᴍᴇssᴀɢᴇ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ʙʀᴏᴀᴅᴄᴀsᴛ.</b>",
+            """
+<b>❍ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ</b>
+
+<b>❍ ᴛʜᴇɴ ᴜsᴇ /broadcast.</b>
+""",
             parse_mode=ParseMode.HTML,
         )
         return
 
-    bm   = message.reply_to_message
-    ok   = 0
-    fail = 0
+    bm = message.reply_to_message
 
+    success = 0
+    failed = 0
+
+    # Processing Message
+    processing = await message.reply(
+        """
+<b>❍ ʙʀᴏᴀᴅᴄᴀsᴛ sᴛᴀʀᴛᴇᴅ</b>
+
+<b>❍ sᴇɴᴅɪɴɢ ᴍᴇssᴀɢᴇs...</b>
+""",
+        parse_mode=ParseMode.HTML,
+    )
+
+    # Send Broadcast
     for doc in broadcast_col.find({}):
+
         try:
-            await bot.forward_messages(int(doc["chat_id"]), bm.chat.id, bm.id)
-            ok += 1
+
+            await bot.forward_messages(
+                int(doc["chat_id"]),
+                bm.chat.id,
+                bm.id,
+            )
+
+            success += 1
+
         except Exception:
-            fail += 1
+
+            failed += 1
+
         await asyncio.sleep(0.4)
 
-    await message.reply(
-        f"<b>✅ ʙʀᴏᴀᴅᴄᴀsᴛ ᴅᴏɴᴇ.</b>\n<b>✓</b> {ok}  <b>✗</b> {fail}",
+    # Final Result
+    await processing.edit_text(
+        f"""
+<b>❍ ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</b>
+
+<b>❍ sᴜᴄᴄᴇss :</b> <code>{success}</code>
+<b>❍ ғᴀɪʟᴇᴅ :</b> <code>{failed}</code>
+""",
         parse_mode=ParseMode.HTML,
     )
