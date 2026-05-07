@@ -2,12 +2,11 @@
 ShizuMusic/core/call.py
 Voice chat helpers — join, leave, stream ended handler.
 """
-
 import asyncio
 
 from pyrogram.enums import ParseMode
 from pytgcalls import filters as fl
-from pytgcalls.types.stream import StreamEnded
+from pytgcalls.types import StreamEnded, Update 
 
 from ShizuMusic import LOGGER, bot, call_py
 from ShizuMusic.core.queue import clear_queue, peek_current, pop_current
