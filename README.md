@@ -36,6 +36,13 @@
 
 <div align="center">
 
+## 📊 Visitors
+
+<img src="https://profile-counter.glitch.me/Badmunda05/count.svg" />
+
+</div>
+
+---
 
 ## ✨ Features
 
@@ -126,24 +133,47 @@ screen -r shizu
 
 ## ⚙️ Config Variables
 
+### 🔴 Required — Bot won't start without these
+
 | Variable | Description |
 |---|---|
 | `API_ID` | Get from [my.telegram.org](https://my.telegram.org) |
 | `API_HASH` | Get from [my.telegram.org](https://my.telegram.org) |
 | `BOT_TOKEN` | Get from [@BotFather](https://t.me/BotFather) |
-| `SESSION_STRING` | Assistant account Pyrogram session |
-| `MONGO_DB_URI` | MongoDB connection URI |
-| `LOGGER_ID` | Log channel/group ID |
-| `SUPPORT_GROUP` | Your support group link |
-| `PING_IMG_URL` | Image URL for /ping command |
+| `STRING_SESSION` | Pyrogram assistant session — Generate at [telegram.tools](https://telegram.tools/session-string-generator#pyrogram) |
+| `MONGO_DB_URL` | MongoDB URI — Get free cluster at [mongodb.com](https://www.mongodb.com/cloud/atlas/register) |
+| `OWNER_ID` | Your Telegram user ID (integer) |
+
+### 🟡 Optional — Default values set, can be changed
+
+| Variable | Default | Description |
+|---|---|---|
+| `BOT_NAME` | `Shizu Music` | Name shown in bot messages |
+| `BOT_LINK` | `https://t.me/ShizuMusicBot` | Bot's Telegram link |
+| `UPDATES_CHANNEL` | `https://t.me/PBX_UPDATE` | Updates channel link |
+| `SUPPORT_GROUP` | `https://t.me/PBXCHATS` | Support group link |
+| `LOGGER_ID` | `-1003544580602` | Log channel/group ID |
+| `START_ANIMATION` | *(catbox video)* | Video/GIF for /start command |
+| `PING_IMG_URL` | *(catbox image)* | Image shown in /ping response |
+| `SESSION_NAME` | `ShizuMusic` | Pyrogram session file name |
+| `PORT` | `10000` | Web server port (for Render/Koyeb) |
+
+### 🔵 Limits — Fine-tune performance
+
+| Variable | Default | Description |
+|---|---|---|
+| `MAX_DURATION_SECONDS` | `1800` | Max song duration (30 minutes) |
+| `QUEUE_LIMIT` | `20` | Max songs in queue per chat |
+| `COOLDOWN` | `10` | Seconds between /play per chat |
 
 ---
 
 ## 📦 Requirements
 
 - Python 3.10+
-- MongoDB (free at [mongodb.com](https://mongodb.com))
-- Telegram API credentials
+- MongoDB — Free at [mongodb.com](https://www.mongodb.com/cloud/atlas/register)
+- Telegram API credentials — [my.telegram.org](https://my.telegram.org)
+- Pyrogram Session String — [telegram.tools](https://telegram.tools/session-string-generator#pyrogram)
 - A userbot/assistant account (for VC streaming)
 
 ---
