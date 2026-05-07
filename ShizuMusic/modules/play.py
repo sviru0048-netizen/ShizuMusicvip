@@ -117,9 +117,7 @@ async def _invite_assistant(
 
         await msg.edit_text(
             f"""
-<b>❍ ᴀssɪsᴛᴀɴᴛ ᴊᴏɪɴ ғᴀɪʟᴇᴅ</b>
-
-<code>{e.error_message}</code>
+<b>❍ ᴀssɪsᴛᴀɴᴛ ᴊᴏɪɴ ғᴀɪʟᴇᴅ</b><code>{e.error_message}</code>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -216,7 +214,6 @@ async def play_handler(_, message: Message) -> None:
             await pm.edit_text(
                 """
 <b>❍ ғɪʟᴇ ᴛᴏᴏ ʟᴀʀɢᴇ</b>
-
 <b>❍ ᴍᴀx sɪᴢᴇ :</b>
 <code>100 MB</code>
 """,
@@ -240,7 +237,6 @@ async def play_handler(_, message: Message) -> None:
             await pm.edit_text(
                 f"""
 <b>❍ ᴅᴏᴡɴʟᴏᴀᴅ ғᴀɪʟᴇᴅ</b>
-
 <code>{e}</code>
 """,
                 parse_mode=ParseMode.HTML,
@@ -330,7 +326,6 @@ async def play_handler(_, message: Message) -> None:
                 chat_id,
                 f"""
 <b>❍ ᴄᴏᴏʟᴅᴏᴡɴ ᴀᴄᴛɪᴠᴇ</b>
-
 <b>❍ ᴘʀᴏᴄᴇssɪɴɢ ɪɴ :</b>
 <code>{rem}s</code>
 """,
@@ -362,11 +357,7 @@ async def play_handler(_, message: Message) -> None:
             chat_id,
             """
 <b>❍ ɪɴᴠᴀʟɪᴅ ᴜsᴀɢᴇ</b>
-
-<b>❍ ᴜsᴇ :</b>
-
-<code>/play song name</code>
-<code>/play youtube url</code>
+<b>❍ ᴜsᴇ :</b><code>/play song name</code><code>/play youtube url</code>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -414,9 +405,7 @@ async def _process_play(
         await pm.edit_text(
             """
 <b>❍ ᴀssɪsᴛᴀɴᴛ ʙᴀɴɴᴇᴅ</b>
-
-<b>❍ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ
-ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ.</b>
+<b>❍ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ.</b>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -465,9 +454,7 @@ async def _process_play(
 
         await pm.edit_text(
             f"""
-<b>❍ sᴇᴀʀᴄʜ ғᴀɪʟᴇᴅ</b>
-
-<code>{e}</code>
+<b>❍ sᴇᴀʀᴄʜ ғᴀɪʟᴇᴅ</b><code>{e}</code>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -489,7 +476,6 @@ async def _process_play(
             await pm.edit_text(
                 """
 <b>❍ ᴇᴍᴘᴛʏ ᴘʟᴀʏʟɪsᴛ</b>
-
 <b>❍ ɴᴏ sᴏɴɢs ғᴏᴜɴᴅ.</b>
 """,
                 parse_mode=ParseMode.HTML,
@@ -529,12 +515,8 @@ async def _process_play(
 
         text = f"""
 <b>❍ ᴘʟᴀʏʟɪsᴛ ᴀᴅᴅᴇᴅ</b>
-
-<b>❍ sᴏɴɢs :</b>
-<code>{len(items)}</code>
-
-<b>❍ ғɪʀsᴛ ᴛʀᴀᴄᴋ :</b>
-<code>{short(items[0]['title'])}</code>
+<b>❍ sᴏɴɢs :</b><code>{len(items)}</code>
+<b>❍ ғɪʀsᴛ ᴛʀᴀᴄᴋ :</b><code>{short(items[0]['title'])}</code>
 """
 
         if len(items) > 1:
@@ -578,7 +560,6 @@ async def _process_play(
         await pm.edit_text(
             """
 <b>❍ sᴏɴɢ ɴᴏᴛ ғᴏᴜɴᴅ</b>
-
 <b>❍ ᴛʀʏ ᴀɴᴏᴛʜᴇʀ ǫᴜᴇʀʏ.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -593,10 +574,7 @@ async def _process_play(
         await pm.edit_text(
             f"""
 <b>❍ sᴏɴɢ ᴛᴏᴏ ʟᴏɴɢ</b>
-
-<b>❍ ᴅᴜʀᴀᴛɪᴏɴ :</b>
-<code>{iso_to_human(dur_iso)}</code>
-
+<b>❍ ᴅᴜʀᴀᴛɪᴏɴ :</b><code>{iso_to_human(dur_iso)}</code>
 <b>❍ ᴍᴀx ʟɪᴍɪᴛ :</b>
 <code>{config.MAX_DURATION_SECONDS // 60} min</code>
 """,
@@ -659,18 +637,10 @@ async def _process_play(
         await message.reply(
             f"""
 <b>❍ ᴀᴅᴅᴇᴅ ᴛᴏ ǫᴜᴇᴜᴇ</b>
-
-<b>❍ ᴛɪᴛʟᴇ :</b>
-<code>{short(title)}</code>
-
-<b>❍ ᴅᴜʀᴀᴛɪᴏɴ :</b>
-<code>{iso_to_human(dur_iso)}</code>
-
-<b>❍ ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b>
-<code>{req}</code>
-
-<b>❍ ᴘᴏsɪᴛɪᴏɴ :</b>
-<code>#{pos - 1}</code>
+<b>❍ ᴛɪᴛʟᴇ :</b><code>{short(title)}</code>
+<b>❍ ᴅᴜʀᴀᴛɪᴏɴ :</b><code>{iso_to_human(dur_iso)}</code>
+<b>❍ ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :</b><code>{req}</code>
+<b>❍ ᴘᴏsɪᴛɪᴏɴ :</b><code>#{pos - 1}</code>
 """,
             parse_mode=ParseMode.HTML,
             reply_markup=kb,
