@@ -1,6 +1,6 @@
 py-yt-search
 py-tgcalls==2.2.5
-kurigram==2.2.1
+pyrofork
 aiohttp
 aiofiles
 flask
