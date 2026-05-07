@@ -9,107 +9,71 @@ from collections import deque
 
 from flask import Flask
 from pyrogram import idle
-from pyrogram.handlers import (
-    CallbackQueryHandler,
-    MessageHandler,
-)
 from pyrogram.types import BotCommand
 
 import config
-from ShizuMusic import (
-    LOGGER,
-    assistant,
-    bot,
-    call_py,
-)
+from ShizuMusic import LOGGER, assistant, bot, call_py
 from ShizuMusic.modules import ALL_MODULES
 
-
-# ─────────────────────────────────────────────
-# ASSISTANT USERNAME
-# ─────────────────────────────────────────────
+# Shared assistant username
 ASSISTANT_USERNAME = ""
 
+# ── Flask health check ────────────────────────────────────────────────────────
 
-# ─────────────────────────────────────────────
-# FLASK HEALTH SERVER
-# ─────────────────────────────────────────────
-app = Flask(__name__)
+_flask = Flask(__name__)
 
 
-@app.route("/")
-def home():
-    return (
-        "❍ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ɪꜱ ʀᴜɴɴɪɴɢ ᴍᴀᴅᴇ ʙʏ ʙᴀᴅᴍᴜɴᴅᴀ 💕",
-        200,
-    )
+@_flask.route("/")
+def _home():
+    return "❍ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ɪꜱ ʀᴜɴɴɪɴɢ ᴍᴀᴅᴇ ʙʏ ʙᴀᴅᴍᴜɴᴅᴀ 💕", 200
 
 
-@app.route("/health")
-def health():
-    return ("OK", 200)
+@_flask.route("/health")
+def _health():
+    return "OK", 200
 
 
-def run_flask() -> None:
-    app.run(
-        host="0.0.0.0",
-        port=config.PORT,
-        use_reloader=False,
-    )
+def _run_flask() -> None:
+    _flask.run(host="0.0.0.0", port=config.PORT, use_reloader=False)
 
 
-# ─────────────────────────────────────────────
-# WATCHDOG
-# ─────────────────────────────────────────────
-async def watchdog() -> None:
-    """
-    Restart process if no activity
-    for 4 hours.
-    """
+# ── Watchdog ──────────────────────────────────────────────────────────────────
+
+async def _watchdog() -> None:
+    """Restart process if no Telegram activity for 4 hours."""
+
+    from pyrogram.handlers import CallbackQueryHandler, MessageHandler
 
     dq: deque = deque(maxlen=500)
-    start_time = time.time()
+    start = time.time()
 
-    async def tick(_, __):
+    async def _tick(_, __):
         dq.append(time.time())
 
     try:
-        bot.add_handler(
-            MessageHandler(tick),
-            group=-99,
-        )
-        bot.add_handler(
-            CallbackQueryHandler(tick),
-            group=-99,
-        )
+        bot.add_handler(MessageHandler(_tick), group=-99)
+        bot.add_handler(CallbackQueryHandler(_tick), group=-99)
     except Exception:
         pass
 
     while True:
-
         await asyncio.sleep(60)
 
         now = time.time()
 
-        # Ignore first 5 mins
-        if now - start_time < 300:
+        if now - start < 300:
             continue
 
         last = dq[-1] if dq else None
 
-        # Restart if inactive for 4 hours
-        if (
-            not last
-            or (now - last) > 14400
-        ):
-
-            LOGGER.error("Watchdog Restart Triggered")
+        if not last or (now - last) > 14400:
+            LOGGER.error("Watchdog: no activity — restarting")
 
             if config.LOGGER_ID:
                 try:
                     await bot.send_message(
                         config.LOGGER_ID,
-                        "⚠️ ShizuMusic Restarting\n\n❍ No Telegram activity detected.",
+                        "⚠️ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ʀᴇꜱᴛᴀʀᴛɪɴɢ\n\n❍ ɴᴏ ᴛᴇʟᴇɢʀᴀᴍ ᴀᴄᴛɪᴠɪᴛʏ ᴅᴇᴛᴇᴄᴛᴇᴅ."
                     )
                 except Exception:
                     pass
@@ -117,124 +81,104 @@ async def watchdog() -> None:
             os._exit(0)
 
 
-# ─────────────────────────────────────────────
-# ASYNC MAIN
-# ─────────────────────────────────────────────
-async def main() -> None:
+# ── Startup ───────────────────────────────────────────────────────────────────
 
-    global ASSISTANT_USERNAME
+if __name__ == "__main__":
 
-    # ─────────────────────────────────────────
-    # FLASK SERVER
-    # ─────────────────────────────────────────
-    threading.Thread(
-        target=run_flask,
-        daemon=True,
-    ).start()
+    # 1. Flask
+    threading.Thread(target=_run_flask, daemon=True).start()
+    LOGGER.info(f"Flask health server on port {config.PORT}")
 
-    LOGGER.info(f"Flask Server Started : {config.PORT}")
+    # 2. PyTgCalls
+    call_py.start()
+    LOGGER.info("PyTgCalls started")
 
-    # ─────────────────────────────────────────
-    # PYTGCALLS
-    # ─────────────────────────────────────────
-    try:
-        call_py.start()
-        LOGGER.info("PyTgCalls Started")
-    except Exception as e:
-        LOGGER.error(f"PyTgCalls Error : {e}")
-        sys.exit(1)
-
-    # ─────────────────────────────────────────
-    # BOT START
-    # ─────────────────────────────────────────
+    # 3. Bot start (with FLOOD_WAIT retry)
     for attempt in range(10):
         try:
-            await bot.start()
-            LOGGER.info("Bot Client Started")
+            bot.start()
+            LOGGER.info("Bot client started")
             break
+
         except Exception as e:
 
-            # FLOOD WAIT
             if "FLOOD_WAIT" in str(e):
-                match = re.search(r"(\d+)", str(e))
+                m = re.search(r"(\d+)", str(e))
+
                 wait = min(
-                    (int(match.group(1)) + 5 if match else 300),
-                    1800,
+                    int(m.group(1)) + 5 if m else 300,
+                    1800
                 )
+
                 LOGGER.warning(
-                    f"FloodWait : Sleeping {wait}s "
-                    f"(Attempt {attempt + 1}/10)"
+                    f"FLOOD_WAIT — sleeping {wait}s "
+                    f"(attempt {attempt + 1}/10)"
                 )
-                await asyncio.sleep(wait)
+
+                time.sleep(wait)
+
             else:
-                LOGGER.error(f"Bot Start Failed : {e}")
+                LOGGER.error(f"Bot start failed: {e}")
                 sys.exit(1)
+
     else:
-        LOGGER.error("Bot Failed To Start After 10 Attempts")
+        LOGGER.error("Bot failed to start after 10 attempts")
         sys.exit(1)
 
-    # ─────────────────────────────────────────
-    # BOT INFO
-    # ─────────────────────────────────────────
-    me = await bot.get_me()
-    LOGGER.info(f"Bot Username : @{me.username}")
+    me = bot.get_me()
+    LOGGER.info(f"Bot: @{me.username}")
 
-    # ─────────────────────────────────────────
-    # BOT COMMANDS
-    # ─────────────────────────────────────────
+    # 4. Set bot commands
     try:
-        await bot.set_bot_commands(
+        bot.set_bot_commands(
             [
-                BotCommand("start",  "Start The Bot"),
-                BotCommand("help",   "Help Menu"),
-                BotCommand("play",   "Play Music"),
-                BotCommand("pause",  "Pause Music"),
-                BotCommand("resume", "Resume Music"),
-                BotCommand("skip",   "Skip Track"),
-                BotCommand("stop",   "Stop Playback"),
-                BotCommand("ping",   "Bot Stats"),
+                BotCommand("start", "✧ sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ✧"),
+                BotCommand("help", "✧ ɢᴇᴛ ʜᴇʟᴘ ᴍᴇɴᴜ ✧"),
+                BotCommand("play", "✧ ᴘʟᴀʏ ᴀ sᴏɴɢ ✧"),
+                BotCommand("pause", "✧ ᴘᴀᴜsᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
+                BotCommand("resume", "✧ ʀᴇsᴜᴍᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
+                BotCommand("skip", "✧ sᴋɪᴘ sᴏɴɢ ✧"),
+                BotCommand("stop", "✧ sᴛᴏᴘ & ᴄʟᴇᴀʀ ✧"),
+                BotCommand("ping", "✧ ʙᴏᴛ sᴛᴀᴛs ✧"),
             ]
         )
-        LOGGER.info("Bot Commands Set")
-    except Exception as e:
-        LOGGER.warning(f"Commands Error : {e}")
 
-    # ─────────────────────────────────────────
-    # ASSISTANT START
-    # ─────────────────────────────────────────
+        LOGGER.info("Bot commands set")
+
+    except Exception as e:
+        LOGGER.warning(f"Could not set bot commands: {e}")
+
+    # 5. Assistant
     try:
         if not assistant.is_connected:
-            await assistant.start()
+            assistant.start()
 
-        assistant_me = await assistant.get_me()
-        ASSISTANT_USERNAME = assistant_me.username
-        LOGGER.info(f"Assistant : @{ASSISTANT_USERNAME}")
+        am = assistant.get_me()
+
+        ASSISTANT_USERNAME = am.username
+
+        LOGGER.info(f"Assistant: @{ASSISTANT_USERNAME}")
+
     except Exception as e:
-        LOGGER.error(f"Assistant Error : {e}")
+        LOGGER.error(f"Assistant start failed: {e}")
         sys.exit(1)
 
-    # ─────────────────────────────────────────
-    # LOAD MODULES
-    # ─────────────────────────────────────────
-    for module in ALL_MODULES:
+    # 6. Load modules
+    for mod in ALL_MODULES:
         try:
-            importlib.import_module(f"ShizuMusic.modules.{module}")
-            LOGGER.info(f"Loaded Module : {module}")
-        except Exception as e:
-            LOGGER.error(f"Module Load Failed {module} : {e}")
+            importlib.import_module(f"ShizuMusic.modules.{mod}")
+            LOGGER.info(f"Loaded module: {mod}")
 
-    # ─────────────────────────────────────────
-    # LOAD STREAM END HANDLER
-    # ─────────────────────────────────────────
+        except Exception as e:
+            LOGGER.error(f"Failed to load module {mod}: {e}")
+
+    # Stream-end handler
     try:
         import ShizuMusic.core.call  # noqa: F401
-        LOGGER.info("Call Handler Loaded")
     except Exception as e:
-        LOGGER.error(f"Call Handler Error : {e}")
+        LOGGER.error(f"Failed to load call handler: {e}")
 
-    # ─────────────────────────────────────────
-    # OWNER NOTIFICATION
-    # ─────────────────────────────────────────
+    # 7. Notify owner
     try:
         await bot.send_message(
             config.LOGGER_ID,
@@ -243,36 +187,29 @@ async def main() -> None:
     except Exception as e:
         LOGGER.warning(f"Logger Notification Error : {e}")
 
-    # ─────────────────────────────────────────
-    # WATCHDOG
-    # ─────────────────────────────────────────
-    asyncio.get_event_loop().create_task(watchdog())
+    except Exception:
+        LOGGER.info(
+            "Could not DM owner — start bot once in PM."
+        )
 
-    LOGGER.info("✅ ShizuMusic Running")
+    # 8. Watchdog
+    loop = asyncio.get_event_loop()
+    loop.create_task(_watchdog())
 
-    # ─────────────────────────────────────────
-    # IDLE
-    # ─────────────────────────────────────────
-    await idle()
+    LOGGER.info("✅ ShizuMusic is running")
 
-    # ─────────────────────────────────────────
-    # SHUTDOWN
-    # ─────────────────────────────────────────
+    idle()
+
+    # ── Graceful shutdown ─────────────────────────────────────────────────────
+
     try:
-        await bot.stop()
+        bot.stop()
     except Exception:
         pass
 
     try:
-        await assistant.stop()
+        assistant.stop()
     except Exception:
         pass
 
-    LOGGER.info("ShizuMusic Stopped")
-
-
-# ─────────────────────────────────────────────
-# ENTRY POINT
-# ─────────────────────────────────────────────
-if __name__ == "__main__":
-    asyncio.run(main())
+    LOGGER.info("ShizuMusic stopped.")
