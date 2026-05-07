@@ -19,6 +19,7 @@ from pyrogram.types import BotCommand
 import config
 from ShizuMusic import LOGGER, assistant, bot, call_py
 from ShizuMusic.modules import ALL_MODULES
+ASSISTANT_USERNAME = ""
 
 # ── Flask health check ────────────────────────────────────────────────────────
 
@@ -128,7 +129,6 @@ if __name__ == "__main__":
         LOGGER.warning(f"Could not set bot commands: {e}")
 
     # 6. Assistant
-    ASSISTANT_USERNAME = ""
     try:
         if not assistant.is_connected:
             assistant.start()
