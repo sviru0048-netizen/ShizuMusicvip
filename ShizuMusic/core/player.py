@@ -1,13 +1,9 @@
-"""
-ShizuMusic/core/player.py
-Core music player — resolve, stream, progress UI.
-"""
 import asyncio
 import time
 
 from pyrogram.enums import ParseMode
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from pytgcalls.types import MediaStream
+from pytgcalls.types import MediaStream, AudioQuality, VideoQuality 
 
 import config
 from ShizuMusic import LOGGER, bot, call_py
@@ -22,7 +18,6 @@ async def _update_progress(
     total: float,
     caption: str,
 ) -> None:
-    """Edit playback message every 18 s with live progress bar."""
     btns = [
         InlineKeyboardButton("▷", callback_data="resume"),
         InlineKeyboardButton("II", callback_data="pause"),
@@ -76,9 +71,15 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
         )
         return
 
-    # Start PyTgCalls
     try:
-        await call_py.play(chat_id, MediaStream(media_path, video_flags=MediaStream.Flags.IGNORE))
+        await call_py.play(
+            chat_id,
+            MediaStream(
+                media_path,
+                audio_parameters=AudioQuality.HIGH,
+                video_flags=MediaStream.Flags.IGNORE,
+            )
+        )
     except Exception as e:
         await bot.send_message(
             chat_id,
