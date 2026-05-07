@@ -1,5 +1,6 @@
 py-yt-search
 py-tgcalls==2.2.12
+ntgcalls==2.2.1b3
 pyrofork
 aiohttp
 aiofiles
