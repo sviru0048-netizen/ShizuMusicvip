@@ -49,7 +49,6 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
                 chat_id,
                 f"""
 <b>❍ sᴛʀᴇᴀᴍ ᴘᴀᴜsᴇᴅ</b>
-
 <b>❍ ʙʏ :</b> {user.mention}
 """,
                 parse_mode=ParseMode.HTML,
@@ -76,7 +75,6 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
                 chat_id,
                 f"""
 <b>❍ sᴛʀᴇᴀᴍ ʀᴇsᴜᴍᴇᴅ</b>
-
 <b>❍ ʙʏ :</b> {user.mention}
 """,
                 parse_mode=ParseMode.HTML,
@@ -122,11 +120,8 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
             chat_id,
             f"""
 <b>❍ ᴛʀᴀᴄᴋ sᴋɪᴘᴘᴇᴅ</b>
-
 <b>❍ ʙʏ :</b> {user.mention}
-
-<b>❍ sᴏɴɢ :</b>
-<code>{short(skipped['title'])}</code>
+<b>❍ sᴏɴɢ :</b><code>{short(skipped['title'])}</code>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -140,9 +135,7 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
             dm = await bot.send_message(
                 chat_id,
                 f"""
-<b>❍ ɴᴇxᴛ ᴛʀᴀᴄᴋ :</b>
-
-<code>{nxt['title']}</code>
+<b>❍ ɴᴇxᴛ ᴛʀᴀᴄᴋ :</b><code>{nxt['title']}</code>
 """,
                 parse_mode=ParseMode.HTML,
             )
@@ -169,7 +162,6 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
             chat_id,
             f"""
 <b>❍ ᴘʟᴀʏʙᴀᴄᴋ sᴛᴏᴘᴘᴇᴅ</b>
-
 <b>❍ ʙʏ :</b> {user.mention}
 """,
             parse_mode=ParseMode.HTML,
@@ -187,7 +179,6 @@ async def on_callback(client, cbq: CallbackQuery) -> None:
         await cbq.message.edit_text(
             f"""
 <b>❍ ǫᴜᴇᴜᴇ ᴄʟᴇᴀʀᴇᴅ</b>
-
 <b>❍ ʙʏ :</b> {user.mention}
 """,
             parse_mode=ParseMode.HTML,
