@@ -13,14 +13,16 @@ from pyrogram.enums import ParseMode
 from pyrogram.types import Message
 
 import config
-from ShizuMusic import bot, bot_start_time, call_py
+from ShizuMusic import bot, assistant, bot_start_time
 
 
 @bot.on_message(filters.command("ping"))
-async def ping_cmd(client, message: Message):
+async def ping_cmd(client, message: Message) -> None:
+
+    # Ping Start
     start = time.perf_counter()
 
-    msg = await message.reply_text(
+    pm = await message.reply_text(
         f"<b>❍ {client.me.first_name} ɪs ᴘɪɴɢɪɴɢ...</b>",
         parse_mode=ParseMode.HTML,
     )
@@ -32,47 +34,49 @@ async def ping_cmd(client, message: Message):
         timedelta(seconds=int(time.time() - bot_start_time))
     )
 
-    # Bot process stats
+    # CPU Usage
+    cpu = psutil.cpu_percent(interval=1)
+
+    # BOT RAM Usage (real process usage)
     process = psutil.Process(os.getpid())
 
-    ram_usage = round(process.memory_info().rss / 1024 / 1024, 2)
+    ram = process.memory_info().rss / 1024 / 1024
+    ram_str = f"{ram:.2f} MB"
 
-    cpu_usage = psutil.cpu_percent(interval=1)
-
+    # Disk Usage
     disk = psutil.disk_usage("/")
-    disk_usage = (
+
+    disk_str = (
         f"{disk.used // (1024**3)}GB / "
         f"{disk.total // (1024**3)}GB "
         f"({disk.percent}%)"
     )
 
-    # PyTgCalls Ping
-    pytgcalls_ping = "N/A"
-
+    # Assistant Ping
     try:
-        ping_start = time.perf_counter()
+        pytg_start = time.perf_counter()
 
-        # lightweight call
-        await call_py.get_me()
+        await assistant.get_me()
 
-        pytgcalls_ping = round(
-            (time.perf_counter() - ping_start) * 1000
+        pytg = round(
+            (time.perf_counter() - pytg_start) * 1000
         )
 
     except Exception:
-        pass
+        pytg = "N/A"
 
-    await msg.edit_text(
+    # Final Output
+    await pm.edit_text(
         f"""
-<b>🏓 ᴘᴏɴɢ : <code>{latency} ms</code></b>
+<b>🏓 ᴘᴏɴɢ : <code>{latency}ms</code></b>
 
 <b><u>{client.me.first_name} sʏsᴛᴇᴍ sᴛᴀᴛs :</u></b>
 
 <b>❍ ᴜᴘᴛɪᴍᴇ :</b> <code>{uptime}</code>
-<b>❍ ʀᴀᴍ :</b> <code>{ram_usage} MB</code>
-<b>❍ ᴄᴘᴜ :</b> <code>{cpu_usage}%</code>
-<b>❍ ᴅɪsᴋ :</b> <code>{disk_usage}</code>
-<b>❍ ᴘʏᴛɢᴄ :</b> <code>{pytgcalls_ping} ms</code>
+<b>❍ ʀᴀᴍ :</b> <code>{ram_str}</code>
+<b>❍ ᴄᴘᴜ :</b> <code>{cpu}%</code>
+<b>❍ ᴅɪsᴋ :</b> <code>{disk_str}</code>
+<b>❍ ᴘʏᴛɢᴄ :</b> <code>{pytg}ms</code>
 
 <b>❍ 𝖡ʏ » <a href="{config.SUPPORT_GROUP}">sʜɪᴢᴜ-ᴍᴜsɪᴄ™</a></b>
 """,
