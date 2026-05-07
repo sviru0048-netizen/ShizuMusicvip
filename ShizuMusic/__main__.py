@@ -66,7 +66,6 @@ async def _notify_owner(me, assistant_username: str) -> None:
         )
     except Exception as e:
         LOGGER.warning(f"Logger Notification Error : {e}")
-        LOGGER.info("Could not DM owner — start bot once in PM.")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
