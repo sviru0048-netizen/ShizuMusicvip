@@ -83,7 +83,7 @@ async def play_handler(_, message: Message) -> None:
     if message.reply_to_message and (
         message.reply_to_message.audio or message.reply_to_message.video
     ):
-        pm   = await message.reply("❄️")
+        pm   = await message.reply("🧪")
         orig = message.reply_to_message
         fresh = await bot.get_messages(orig.chat.id, orig.id)
         media = fresh.video or fresh.audio
