@@ -25,21 +25,27 @@ async def _update_progress(
     """Edit playback message every 18 s with live progress bar."""
     btns = [
         InlineKeyboardButton("▷", callback_data="resume"),
-        InlineKeyboardButton("II",  callback_data="pause"),
-        InlineKeyboardButton("‣‣I",  callback_data="skip"),
-        InlineKeyboardButton("▢",  callback_data="stop"),
+        InlineKeyboardButton("II", callback_data="pause"),
+        InlineKeyboardButton("‣‣I", callback_data="skip"),
+        InlineKeyboardButton("▢", callback_data="stop"),
     ]
     while True:
         elapsed = min(time.time() - start_t, total)
         bar = progress_bar(elapsed, total)
-        kb  = InlineKeyboardMarkup([btns, [InlineKeyboardButton(bar, callback_data="noop")]])
+        kb = InlineKeyboardMarkup([
+            [InlineKeyboardButton(bar, callback_data="noop")],
+            btns,
+        ])
+
         try:
             await bot.edit_message_caption(chat_id, msg.id, caption=caption, reply_markup=kb)
         except Exception as e:
             if "MESSAGE_NOT_MODIFIED" not in str(e):
                 break
+
         if elapsed >= total:
             break
+
         await asyncio.sleep(18)
 
 
@@ -64,7 +70,7 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
     except Exception as e:
         await bot.send_message(
             chat_id,
-            f"<b>❌ ᴅᴏᴡɴʟᴏᴀᴅ ғᴀɪʟᴇᴅ</b>\n\n<code>{e}</code>\n\n"
+            f"<b>❍ ᴅᴏᴡɴʟᴏᴀᴅ ғᴀɪʟᴇᴅ</b>\n\n<code>{e}</code>\n\n"
             "<i>ᴩʟᴇᴀsᴇ ᴛʀʏ /play ᴀɢᴀɪɴ</i>",
             parse_mode=ParseMode.HTML,
         )
@@ -76,7 +82,7 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
     except Exception as e:
         await bot.send_message(
             chat_id,
-            f"<b>❌ ᴘʟᴀʏʙᴀᴄᴋ ғᴀɪʟᴇᴅ :</b> <code>{e}</code>",
+            f"<b>❍ ᴘʟᴀʏʙᴀᴄᴋ ғᴀɪʟᴇᴅ :</b> <code>{e}</code>",
             parse_mode=ParseMode.HTML,
         )
         return
@@ -94,12 +100,15 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
     )
     btns = [
         InlineKeyboardButton("▷", callback_data="resume"),
-        InlineKeyboardButton("II",  callback_data="pause"),
-        InlineKeyboardButton("‣‣I",  callback_data="skip"),
-        InlineKeyboardButton("▢",  callback_data="stop"),
+        InlineKeyboardButton("II", callback_data="pause"),
+        InlineKeyboardButton("‣‣I", callback_data="skip"),
+        InlineKeyboardButton("▢", callback_data="stop"),
     ]
     bar = progress_bar(0, total)
-    kb  = InlineKeyboardMarkup([btns, [InlineKeyboardButton(bar, callback_data="noop")]])
+    kb = InlineKeyboardMarkup([
+        [InlineKeyboardButton(bar, callback_data="noop")],
+        btns,
+    ])
 
     thumb = song.get("thumbnail")
     try:
