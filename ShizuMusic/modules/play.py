@@ -150,7 +150,7 @@ async def play_handler(_, message: Message) -> None:
 
 async def _process_play(message: Message, query: str) -> None:
     chat_id = message.chat.id
-    pm = await message.reply("❄️")
+    pm = await message.reply("🧪")
 
     # Lazy-import to avoid circular at module load
     from ShizuMusic.__main__ import ASSISTANT_USERNAME
