@@ -83,6 +83,18 @@ async def _watchdog() -> None:
 
 # ── Startup ───────────────────────────────────────────────────────────────────
 
+async def _notify_owner(me, assistant_username: str) -> None:
+    """Send startup notification to the logger chat."""
+    try:
+        await bot.send_message(
+            config.LOGGER_ID,
+            f"✅ ShizuMusic Started\n\n❍ Bot : @{me.username}\n❍ Assistant : @{assistant_username}",
+        )
+    except Exception as e:
+        LOGGER.warning(f"Logger Notification Error : {e}")
+        LOGGER.info("Could not DM owner — start bot once in PM.")
+
+
 if __name__ == "__main__":
 
     # 1. Flask
@@ -178,22 +190,11 @@ if __name__ == "__main__":
     except Exception as e:
         LOGGER.error(f"Failed to load call handler: {e}")
 
-    # 7. Notify owner
-    try:
-        await bot.send_message(
-            config.LOGGER_ID,
-            f"✅ ShizuMusic Started\n\n❍ Bot : @{me.username}\n❍ Assistant : @{ASSISTANT_USERNAME}",
-        )
-    except Exception as e:
-        LOGGER.warning(f"Logger Notification Error : {e}")
-
-    except Exception:
-        LOGGER.info(
-            "Could not DM owner — start bot once in PM."
-        )
+    # 7. Notify owner (async call via event loop)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(_notify_owner(me, ASSISTANT_USERNAME))
 
     # 8. Watchdog
-    loop = asyncio.get_event_loop()
     loop.create_task(_watchdog())
 
     LOGGER.info("✅ ShizuMusic is running")
