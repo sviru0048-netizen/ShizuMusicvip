@@ -22,8 +22,9 @@ async def ping_cmd(client, message: Message) -> None:
     # Ping Start
     start = time.perf_counter()
 
-    pm = await message.reply_text(
-        f"<b>❍ {client.me.first_name} ɪs ᴘɪɴɢɪɴɢ...</b>",
+    pm = await message.reply_photo(
+        photo=config.PING_IMG_URL,
+        caption=f"<b>❍ {client.me.first_name} ɪs ᴘɪɴɢɪɴɢ...</b>",
         parse_mode=ParseMode.HTML,
     )
 
@@ -37,7 +38,7 @@ async def ping_cmd(client, message: Message) -> None:
     # CPU Usage
     cpu = psutil.cpu_percent(interval=1)
 
-    # BOT RAM Usage (real process usage)
+    # BOT RAM Usage
     process = psutil.Process(os.getpid())
 
     ram = process.memory_info().rss / 1024 / 1024
@@ -66,8 +67,8 @@ async def ping_cmd(client, message: Message) -> None:
         pytg = "N/A"
 
     # Final Output
-    await pm.edit_text(
-        f"""
+    await pm.edit_caption(
+        caption=f"""
 <b>🏓 ᴘᴏɴɢ : <code>{latency}ms</code></b>
 
 <b><u>{client.me.first_name} sʏsᴛᴇᴍ sᴛᴀᴛs :</u></b>
