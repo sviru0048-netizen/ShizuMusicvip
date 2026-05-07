@@ -21,10 +21,7 @@ BOT_LINK         = os.getenv("BOT_LINK", "https://t.me/ShizuMusicBot")
 UPDATES_CHANNEL  = os.getenv("UPDATES_CHANNEL", "https://t.me/PBX_UPDATE")
 SUPPORT_GROUP    = os.getenv("SUPPORT_GROUP", "https://t.me/PBXCHATS")
 LOGGER_ID        = os.getenv("LOGGER_ID", "")
-START_ANIMATION  = os.getenv(
-    "START_ANIMATION",
-    "https://files.tgvibes.online/BvOqarEM.mp4",
-)
+START_ANIMATION  = os.getenv("START_ANIMATION", "https://telegra.ph/file/1a3c152717eb9d2e94dc2.mp4",)
 SESSION_NAME     = os.getenv("SESSION_NAME", "ShizuMusic")
 PORT             = int(os.getenv("PORT", 10000))
 
