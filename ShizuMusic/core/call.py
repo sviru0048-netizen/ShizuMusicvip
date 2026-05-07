@@ -69,7 +69,6 @@ async def on_stream_end(_: object, update: StreamEnded) -> None:
                 chat_id,
                 f"""
 <b>❍ ɴᴇxᴛ ᴛʀᴀᴄᴋ :</b>
-
 <b>❍ ᴛɪᴛʟᴇ :</b> <code>{nxt['title']}</code>
 """,
                 parse_mode=ParseMode.HTML,
@@ -95,7 +94,6 @@ async def on_stream_end(_: object, update: StreamEnded) -> None:
             chat_id,
             """
 <b>❍ ϙᴜᴇᴜᴇ ғɪɴɪsʜᴇᴅ</b>
-
 <b>❍ ʟᴇғᴛ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ.</b>
 """,
             parse_mode=ParseMode.HTML,
