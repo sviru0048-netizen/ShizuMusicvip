@@ -32,7 +32,6 @@ async def skip_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ᴀᴅᴍɪɴ ᴏɴʟʏ</b>
-
 <b>❍ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ғᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -45,7 +44,6 @@ async def skip_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ǫᴜᴇᴜᴇ ɪs ᴇᴍᴘᴛʏ</b>
-
 <b>❍ ɴᴏ sᴏɴɢs ᴛᴏ sᴋɪᴘ.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -86,12 +84,8 @@ async def skip_cmd(_, message: Message) -> None:
 
         await sm.edit_text(
             f"""
-<b>❍ sᴋɪᴘᴘᴇᴅ ᴛʀᴀᴄᴋ :</b>
-
-<code>{short(skipped['title'])}</code>
-
+<b>❍ sᴋɪᴘᴘᴇᴅ ᴛʀᴀᴄᴋ :</b><code>{short(skipped['title'])}</code>
 <b>❍ ɴᴏᴡ ᴘʟᴀʏɪɴɢ :</b>
-
 <code>{nxt['title']}</code>
 """,
             parse_mode=ParseMode.HTML,
@@ -100,9 +94,7 @@ async def skip_cmd(_, message: Message) -> None:
         dm = await bot.send_message(
             chat_id,
             f"""
-<b>❍ ɴᴇxᴛ ᴛʀᴀᴄᴋ :</b>
-
-<code>{nxt['title']}</code>
+<b>❍ ɴᴇxᴛ ᴛʀᴀᴄᴋ :</b><code>{nxt['title']}</code>
 """,
             parse_mode=ParseMode.HTML,
         )
@@ -113,10 +105,7 @@ async def skip_cmd(_, message: Message) -> None:
 
         await sm.edit_text(
             f"""
-<b>❍ sᴋɪᴘᴘᴇᴅ ᴛʀᴀᴄᴋ :</b>
-
-<code>{short(skipped['title'])}</code>
-
+<b>❍ sᴋɪᴘᴘᴇᴅ ᴛʀᴀᴄᴋ :</b><code>{short(skipped['title'])}</code>
 <b>❍ ǫᴜᴇᴜᴇ ɪs ɴᴏᴡ ᴇᴍᴘᴛʏ</b>
 """,
             parse_mode=ParseMode.HTML,
