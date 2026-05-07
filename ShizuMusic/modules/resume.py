@@ -24,7 +24,6 @@ async def resume_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ ᴀᴅᴍɪɴ ᴏɴʟʏ</b>
-
 <b>❍ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ғᴏʀ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -39,7 +38,6 @@ async def resume_cmd(_, message: Message) -> None:
         await message.reply(
             """
 <b>❍ sᴛʀᴇᴀᴍ ʀᴇsᴜᴍᴇᴅ</b>
-
 <b>❍ ᴍᴜsɪᴄ ᴘʟᴀʏʙᴀᴄᴋ ᴄᴏɴᴛɪɴᴜᴇᴅ.</b>
 """,
             parse_mode=ParseMode.HTML,
@@ -50,7 +48,6 @@ async def resume_cmd(_, message: Message) -> None:
         await message.reply(
             f"""
 <b>❍ ʀᴇsᴜᴍᴇ ғᴀɪʟᴇᴅ</b>
-
 <code>{e}</code>
 """,
             parse_mode=ParseMode.HTML,
