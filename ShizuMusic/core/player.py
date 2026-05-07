@@ -24,10 +24,10 @@ async def _update_progress(
 ) -> None:
     """Edit playback message every 18 s with live progress bar."""
     btns = [
-        InlineKeyboardButton("⏸",  callback_data="pause"),
-        InlineKeyboardButton("▶️", callback_data="resume"),
+        InlineKeyboardButton("▷", callback_data="resume"),
+        InlineKeyboardButton("II",  callback_data="pause"),
         InlineKeyboardButton("⏭",  callback_data="skip"),
-        InlineKeyboardButton("⏹",  callback_data="stop"),
+        InlineKeyboardButton("▢",  callback_data="stop"),
     ]
     while True:
         elapsed = min(time.time() - start_t, total)
@@ -96,10 +96,10 @@ async def play_song(chat_id: int, message: Message, song: dict) -> None:
         "</blockquote>"
     )
     btns = [
-        InlineKeyboardButton("⏸",  callback_data="pause"),
-        InlineKeyboardButton("▶️", callback_data="resume"),
+        InlineKeyboardButton("▷", callback_data="resume"),
+        InlineKeyboardButton("II",  callback_data="pause"),
         InlineKeyboardButton("⏭",  callback_data="skip"),
-        InlineKeyboardButton("⏹",  callback_data="stop"),
+        InlineKeyboardButton("▢",  callback_data="stop"),
     ]
     bar = progress_bar(0, total)
     kb  = InlineKeyboardMarkup([btns, [InlineKeyboardButton(bar, callback_data="noop")]])
