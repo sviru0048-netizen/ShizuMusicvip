@@ -3,6 +3,7 @@ ShizuMusic/utils/formatters.py
 Text formatting, time conversion, and UI helpers.
 """
 import isodate
+import math
 
 
 def fmt_time(seconds: float) -> str:
@@ -62,11 +63,49 @@ def short(title: str, n: int = 22) -> str:
     return title if len(title) <= n else title[: n - 1] + "…"
 
 
-def progress_bar(elapsed: float, total: float, length: int = 13) -> str:
-    """Render a Unicode progress bar with emoji cursor."""
+def progress_bar(elapsed: float, total: float) -> str:
+    """Render heart-style progress bar."""
+
     if total <= 0:
         return "N/A"
-    frac = min(elapsed / total, 1.0)
-    idx  = min(int(frac * length), length - 1)
-    bar  = "━" * idx + "🎵" + "─" * (length - idx - 1)
-    return f"{fmt_time(elapsed)} {bar} {fmt_time(total)}"
+
+    played = fmt_time(elapsed)
+    dur = fmt_time(total)
+
+    played_sec = int(elapsed)
+    duration_sec = int(total)
+
+    percentage = (played_sec / duration_sec) * 100
+    umm = math.floor(percentage)
+
+    if 0 < umm <= 10:
+        bar = "♡—————————"
+
+    elif 10 < umm < 20:
+        bar = "—♡————————"
+
+    elif 20 <= umm < 30:
+        bar = "——♡———————"
+
+    elif 30 <= umm < 40:
+        bar = "———♡——————"
+
+    elif 40 <= umm < 50:
+        bar = "————♡—————"
+
+    elif 50 <= umm < 60:
+        bar = "—————♡————"
+
+    elif 60 <= umm < 70:
+        bar = "——————♡———"
+
+    elif 70 <= umm < 80:
+        bar = "———————♡——"
+
+    elif 80 <= umm < 95:
+        bar = "————————♡—"
+
+    else:
+        bar = "—————————♡"
+
+    return f"{played} {bar} {dur}"
