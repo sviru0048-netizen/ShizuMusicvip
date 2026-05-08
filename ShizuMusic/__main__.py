@@ -1,6 +1,6 @@
 """
 ShizuMusic/__main__.py
-Entry point — starts Flask, keep-alive, bot, assistant, modules, watchdog.
+Entry point — starts MongoDB, Flask, keep-alive, bot, assistant, modules, watchdog.
 """
 
 import asyncio
@@ -19,7 +19,9 @@ from pyrogram.types import BotCommand
 import config
 from ShizuMusic import LOGGER, assistant, bot, call_py
 from ShizuMusic.modules import ALL_MODULES
-ASSISTANT_USERNAME = ""
+
+# ── Global assistant username (used in play.py) ───────────────────────────────
+ASSISTANT_USERNAME: str = ""
 
 # ── Flask health check ────────────────────────────────────────────────────────
 
@@ -43,8 +45,7 @@ def _run_flask() -> None:
 # ── Keep-Alive Ping ───────────────────────────────────────────────────────────
 
 def _keep_alive() -> None:
-    """Ping own Render URL every 5 minutes so the service never sleeps."""
-    url = "https://shizumusicbot-w7jq.onrender.com"
+    url = os.getenv("RENDER_EXTERNAL_URL", f"http://0.0.0.0:{config.PORT}")
     while True:
         try:
             requests.get(url, timeout=10)
@@ -57,7 +58,8 @@ def _keep_alive() -> None:
 # ── Startup notification ──────────────────────────────────────────────────────
 
 async def _notify_owner(me, assistant_username: str) -> None:
-    """Send startup notification to the logger chat."""
+    if not config.LOGGER_ID:
+        return
     try:
         await bot.send_message(
             config.LOGGER_ID,
@@ -73,32 +75,40 @@ async def _notify_owner(me, assistant_username: str) -> None:
 
 if __name__ == "__main__":
 
-    # 1. Flask
+    # 1. MongoDB
+    try:
+        from ShizuMusic.database import start_mongo
+        ok = start_mongo()
+        if ok:
+            LOGGER.info("MongoDB ready.")
+        else:
+            LOGGER.warning("MongoDB not connected — continuing without DB.")
+    except Exception as e:
+        LOGGER.warning(f"MongoDB startup error: {e} — continuing without DB.")
+
+    # 2. Flask
     threading.Thread(target=_run_flask, daemon=True).start()
     LOGGER.info(f"Flask health server on port {config.PORT}")
 
-    # 2. Keep-alive ping
+    # 3. Keep-alive ping
     threading.Thread(target=_keep_alive, daemon=True).start()
     LOGGER.info("Keep-alive thread started")
 
-    # 3. PyTgCalls
+    # 4. PyTgCalls
     call_py.start()
     LOGGER.info("PyTgCalls started")
 
-    # 4. Bot start (with FLOOD_WAIT retry)
+    # 5. Bot start (with FLOOD_WAIT retry)
     for attempt in range(10):
         try:
             bot.start()
             LOGGER.info("Bot client started")
             break
-
         except Exception as e:
             if "FLOOD_WAIT" in str(e):
                 m = re.search(r"(\d+)", str(e))
                 wait = min(int(m.group(1)) + 5 if m else 300, 1800)
-                LOGGER.warning(
-                    f"FLOOD_WAIT — sleeping {wait}s (attempt {attempt + 1}/10)"
-                )
+                LOGGER.warning(f"FLOOD_WAIT — sleeping {wait}s (attempt {attempt + 1}/10)")
                 time.sleep(wait)
             else:
                 LOGGER.error(f"Bot start failed: {e}")
@@ -110,7 +120,7 @@ if __name__ == "__main__":
     me = bot.get_me()
     LOGGER.info(f"Bot: @{me.username}")
 
-    # 5. Set bot commands
+    # 6. Set bot commands
     try:
         bot.set_bot_commands(
             [
@@ -128,18 +138,18 @@ if __name__ == "__main__":
     except Exception as e:
         LOGGER.warning(f"Could not set bot commands: {e}")
 
-    # 6. Assistant
+    # 7. Assistant
     try:
         if not assistant.is_connected:
             assistant.start()
         am = assistant.get_me()
-        ASSISTANT_USERNAME = am.username
+        ASSISTANT_USERNAME = am.username or ""
         LOGGER.info(f"Assistant: @{ASSISTANT_USERNAME}")
     except Exception as e:
         LOGGER.error(f"Assistant start failed: {e}")
         sys.exit(1)
 
-    # 7. Load modules
+    # 8. Load modules
     for mod in ALL_MODULES:
         try:
             importlib.import_module(f"ShizuMusic.modules.{mod}")
@@ -147,17 +157,17 @@ if __name__ == "__main__":
         except Exception as e:
             LOGGER.error(f"Failed to load module {mod}: {e}")
 
-    # 8. Stream-end handler
+    # 9. Stream-end handler
     try:
         import ShizuMusic.core.call  # noqa: F401
     except Exception as e:
         LOGGER.error(f"Failed to load call handler: {e}")
 
-    # 9. Notify owner
+    # 10. Notify owner
     loop = asyncio.get_event_loop()
     loop.run_until_complete(_notify_owner(me, ASSISTANT_USERNAME))
 
-    # 10. Watchdog  ← lives in ShizuMusic/core/watcher.py
+    # 11. Watchdog
     from ShizuMusic.core.watcher import watchdog
     loop.create_task(watchdog())
     LOGGER.info("Watchdog started")
@@ -167,7 +177,6 @@ if __name__ == "__main__":
     idle()
 
     # ── Graceful shutdown ─────────────────────────────────────────────────────
-
     try:
         bot.stop()
     except Exception:
