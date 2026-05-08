@@ -1,7 +1,11 @@
-"""
-ShizuMusic/utils/formatters.py
-Text formatting, time conversion, and UI helpers.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 import isodate
 import math
 
