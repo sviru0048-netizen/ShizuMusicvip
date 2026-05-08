@@ -6,7 +6,6 @@
 #  from this source code is strictly prohibited.
 # --------------------------------------------------------------------------------
 
-
 import random
 
 from pyrogram import filters
