@@ -1,7 +1,11 @@
-"""
-ShizuMusic/__init__.py
-Bot client, assistant userbot, and PyTgCalls initialization..
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 import logging
 import time
 
