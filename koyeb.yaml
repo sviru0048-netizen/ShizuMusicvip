@@ -1,14 +1,52 @@
 name: ShizuMusic
 services:
-  - name: bot
+  - name: shizumusic
     type: worker
     git:
+      repository: https://github.com/Badmunda05/ShizuMusic
       branch: main
-    run: python main.py
+    build:
+      buildpack: python
+    run:
+      command: python main.py
     env:
-      - API_ID
-      - API_HASH
-      - BOT_TOKEN
-      - STRING_SESSION
-      - MONGO_DB_URL
-      - OWNER_ID
+      - name: API_ID
+        value: ""
+      - name: API_HASH
+        value: ""
+      - name: BOT_TOKEN
+        value: ""
+      - name: STRING_SESSION
+        value: ""
+      - name: MONGO_DB_URL
+        value: ""
+      - name: OWNER_ID
+        value: ""
+      - name: BOT_NAME
+        value: "Shizu Music"
+      - name: BOT_LINK
+        value: "https://t.me/ShizuMusicBot"
+      - name: UPDATES_CHANNEL
+        value: "https://t.me/PBX_UPDATE"
+      - name: SUPPORT_GROUP
+        value: "https://t.me/PBXCHATS"
+      - name: LOGGER_ID
+        value: ""
+      - name: START_ANIMATION
+        value: "https://telegra.ph/file/1a3c152717eb9d2e94dc2.mp4"
+      - name: PING_IMG_URL
+        value: "https://files.catbox.moe/ddzvc0.jpg"
+      - name: SESSION_NAME
+        value: "ShizuMusic"
+      - name: PORT
+        value: "10000"
+      - name: MAX_DURATION_SECONDS
+        value: "1800"
+      - name: QUEUE_LIMIT
+        value: "20"
+      - name: COOLDOWN
+        value: "10"
+    scaling:
+      min: 1
+      max: 1
+      
