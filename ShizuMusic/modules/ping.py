@@ -1,7 +1,10 @@
-"""
-ShizuMusic/modules/ping.py
-/ping command — latency, uptime, and system stats.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
 
 import os
 import time
