@@ -44,25 +44,25 @@ async def start_handler(_, message: Message) -> None:
 
         caption = (
             "<b>╭────────────────────▣</b>\n"
-            f"<b>│❍ нєу</b> <a href='tg://user?id={uid}'>{name}</a>, 🥀\n"
+            f"<b>│❍ ʜᴇʏ</b> <a href='tg://user?id={uid}'>{name}</a>, 🥀\n"
             f"<b>│❍ ᴛʜɪs ɪs {config.BOT_NAME} !</b>\n"
             "<b>├────────────────────▣</b>\n"
-            "<b>│❍ ᴀ ғᴀsᴛ & ᴘᴏᴡᴇʀғᴜʟ ᴛᴇʟᴇɢʀᴀᴍ </b>\n"
-            "<b>│ᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ ʙᴏᴛ ᴡɪᴛʜ </b>\n"
-            "<b>│sᴏᴍᴇ ᴀᴡᴇsᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs.</b>\n"
+            "<b>│❍ ᴀ ғᴀsᴛ & ᴘᴏᴡᴇʀғᴜʟ ᴛᴇʟᴇɢʀᴀᴍ</b>\n"
+            "<b>│ ᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ ʙᴏᴛ ᴡɪᴛʜ</b>\n"
+            "<b>│ sᴏᴍᴇ ᴀᴡᴇsᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs.</b>\n"
             "<b>├────────────────────▣</b>\n"
-            "<b>│❍ ᴄʟɪᴄᴋ ʜᴇʟᴩ ғᴏʀ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs.</b>\n"
+            "<b>│❍ ᴄʟɪᴄᴋ ʜᴇʟᴘ ғᴏʀ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs.</b>\n"
             "<b>├────────────────────▣</b>\n"
-            f"<b>│❍ 𝖯ᴏᴡᴇʀᴇᴅ 𝖡ʏ » <a href=t.me/PBXCHATS>sʜɪᴢᴜ-ᴍᴜ𝛅𝛊ᴄ™</a></b>\n"
+            f"<b>│❍ ᴘᴏᴡᴇʀᴇᴅ ʙʏ » <a href='t.me/PBXCHATS'>sʜɪᴢᴜ-ᴍᴜsɪᴄ™</a></b>\n"
             "<b>╰────────────────────▣</b>"
         )
         kb = InlineKeyboardMarkup([
             [InlineKeyboardButton("⛩️ ᴧᴅᴅ мᴇ ʙᴧʙʏ ⛩️", url=f"{config.BOT_LINK}?startgroup=true")],
             [
-                InlineKeyboardButton("🍬 sᴜᴩᴩᴏʀᴛ 🍬", url=config.SUPPORT_GROUP),
-                InlineKeyboardButton("🍹 ᴜᴩᴅᴀᴛᴇ 🍹",   url=config.UPDATES_CHANNEL),
+                InlineKeyboardButton("🍬 sᴜᴘᴘᴏʀᴛ 🍬", url=config.SUPPORT_GROUP),
+                InlineKeyboardButton("🍹 ᴜᴘᴅᴀᴛᴇs 🍹",  url=config.UPDATES_CHANNEL),
             ],
-            [InlineKeyboardButton("🏩 ʜᴇʟᴩ ᴧиᴅ ᴄᴏᴍᴍᴧɴᴅs 🏩", callback_data="show_help")],
+            [InlineKeyboardButton("🏩 ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs 🏩", callback_data="show_help")],
             [
                 InlineKeyboardButton("🫧 ᴏᴡɴᴇʀ 🫧",  url=f"tg://user?id={config.OWNER_ID}"),
                 InlineKeyboardButton("🍡 sᴏᴜʀᴄᴇ 🍡", url="https://github.com/Badmunda05/ShizuMusic/fork"),
@@ -89,9 +89,9 @@ async def start_handler(_, message: Message) -> None:
             try:
                 await bot.send_message(
                     config.LOGGER_ID,
-                    "<b>#ɴᴇᴡᴜsᴇʀ ꜱᴛᴀʀᴛᴇᴅ</b>\n\n"
-                    f"<b>❍ ɴᴀᴍᴇ :</b> <a href='tg://user?id={uid}'>{name}</a>\n"
-                    f"<b>❍ ɪᴅ    :</b> <code>{uid}</code>\n"
+                    "<b>#ɴᴇᴡᴜsᴇʀ sᴛᴀʀᴛᴇᴅ</b>\n\n"
+                    f"<b>❍ ɴᴀᴍᴇ     :</b> <a href='tg://user?id={uid}'>{name}</a>\n"
+                    f"<b>❍ ɪᴅ       :</b> <code>{uid}</code>\n"
                     f"<b>❍ ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username or 'N/A'}",
                     parse_mode=ParseMode.HTML,
                 )
@@ -105,14 +105,14 @@ async def start_handler(_, message: Message) -> None:
             f"❍ ʜᴇʏ <a href='tg://user?id={uid}'>{name}</a>,\n"
             f"ᴛʜɪs ɪs <b>{config.BOT_NAME}</b>\n\n"
             f"ᴛʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ ɪɴ <b>{chat_title}</b>.\n"
-            f"{name} ᴄᴀɴ ɴᴏᴡ ᴩʟᴀʏ sᴏɴɢs ʜᴇʀᴇ."
+            f"{name} ᴄᴀɴ ɴᴏᴡ ᴘʟᴀʏ sᴏɴɢs ʜᴇʀᴇ."
         )
         kb = InlineKeyboardMarkup([
             [
                 InlineKeyboardButton("⛩️ ᴧᴅᴅ мᴇ ʙᴧʙʏ ⛩️", url=f"{config.BOT_LINK}?startgroup=true"),
-                InlineKeyboardButton("🍬 sᴜᴩᴩᴏʀᴛ 🍬",       url=config.SUPPORT_GROUP),
+                InlineKeyboardButton("🍬 sᴜᴘᴘᴏʀᴛ 🍬", url=config.SUPPORT_GROUP),
             ],
-            [InlineKeyboardButton("🏩 ʜᴇʟᴩ ᴧиᴅ ᴄᴏᴍᴍᴧɴᴅs 🏩", callback_data="show_help")],
+            [InlineKeyboardButton("🏩 ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs 🏩", callback_data="show_help")],
         ])
 
         await message.reply_animation(
@@ -121,6 +121,37 @@ async def start_handler(_, message: Message) -> None:
             parse_mode=ParseMode.HTML,
             reply_markup=kb,
         )
+
+        # ── Admin Request Message ─────────────────────────────────────────────
+        admin_msg = (
+            "<b>╭──────────────────────▣</b>\n"
+            "<b>│❍ ᴛʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ! 🥀</b>\n"
+            "<b>├──────────────────────▣</b>\n"
+            "<b>│❍ ᴘʟᴇᴀsᴇ ᴍᴀᴋᴇ ᴍᴇ ᴀɴ ᴀᴅᴍɪɴ</b>\n"
+            "<b>│  ᴡɪᴛʜ ᴛʜᴇsᴇ ᴘᴇʀᴍɪssɪᴏɴs:</b>\n"
+            "<b>├──────────────────────▣</b>\n"
+            "<b>│ ❍ ᴅᴇʟᴇᴛᴇ ᴍᴇssᴀɢᴇs</b>\n"
+            "<b>│ ❍ ᴍᴀɴᴀɢᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs</b>\n"
+            "<b>│ ❍ ɪɴᴠɪᴛᴇ ᴜsᴇʀs</b>\n"
+            "<b>├──────────────────────▣</b>\n"
+            "<b>│❍ ᴡɪᴛʜᴏᴜᴛ ᴀᴅᴍɪɴ ᴘᴇʀᴍs</b>\n"
+            "<b>│  sᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs ᴡᴏɴ'ᴛ ᴡᴏʀᴋ! 🚫</b>\n"
+            "<b>╰──────────────────────▣</b>"
+        )
+        admin_kb = InlineKeyboardMarkup([
+            [InlineKeyboardButton(
+                "⚡ ᴍᴀᴋᴇ ᴍᴇ ᴀᴅᴍɪɴ ⚡",
+                url=f"tg://user?id={(await bot.get_me()).id}"
+            )]
+        ])
+        try:
+            await message.reply_text(
+                admin_msg,
+                parse_mode=ParseMode.HTML,
+                reply_markup=admin_kb,
+            )
+        except Exception:
+            pass
 
         # ── Broadcast DB save ─────────────────────────────────────────────────
         try:
