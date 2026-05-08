@@ -42,8 +42,20 @@ from ShizuMusic.utils.youtube import search_yt
 # STATE
 # ─────────────────────────────────────────────
 _last_cmd: dict[int, float] = {}
+_pending:  dict[int, tuple] = {}
 
-_pending: dict[int, tuple] = {}
+
+# ─────────────────────────────────────────────
+# DB HELPER
+# ─────────────────────────────────────────────
+def _db_track(chat_id: int, user_id: int) -> None:
+    try:
+        from ShizuMusic.database import add_served_chat, add_served_user
+        add_served_chat(chat_id)
+        if user_id:
+            add_served_user(user_id)
+    except Exception:
+        pass
 
 
 # ─────────────────────────────────────────────
@@ -173,6 +185,10 @@ async def _run_pending(
 async def play_handler(_, message: Message) -> None:
 
     chat_id = message.chat.id
+    user_id = message.from_user.id if message.from_user else 0
+
+    # DB — track chat & user
+    _db_track(chat_id, user_id)
 
     # ─────────────────────────────────────────
     # REPLIED AUDIO / VIDEO
@@ -275,7 +291,10 @@ async def play_handler(_, message: Message) -> None:
             ),
             "requester": (
                 message.from_user.first_name
+                if message.from_user
+                else "Unknown"
             ),
+            "requester_id": user_id,   # DB tracking
             "thumbnail": thumb,
         }
 
@@ -387,44 +406,47 @@ async def _process_play(
         parse_mode=ParseMode.HTML,
     )
 
-    # Avoid circular import
-    from ShizuMusic.__main__ import (
-        ASSISTANT_USERNAME,
-    )
+    # Avoid circular import — runtime import
+    try:
+        from ShizuMusic.__main__ import ASSISTANT_USERNAME
+    except Exception:
+        ASSISTANT_USERNAME = ""
 
     # ─────────────────────────────────────────
     # ASSISTANT CHECK
     # ─────────────────────────────────────────
-    status = await _is_assistant_in(
-        chat_id,
-        ASSISTANT_USERNAME,
-    )
+    if ASSISTANT_USERNAME:
 
-    if status == "banned":
+        status = await _is_assistant_in(
+            chat_id,
+            ASSISTANT_USERNAME,
+        )
 
-        await pm.edit_text(
-            """
+        if status == "banned":
+
+            await pm.edit_text(
+                """
 <b>❍ ᴀssɪsᴛᴀɴᴛ ʙᴀɴɴᴇᴅ</b>
 <b>❍ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ.</b>
 """,
-            parse_mode=ParseMode.HTML,
-        )
-
-        return
-
-    if not status:
-
-        link = await _get_invite(chat_id)
-
-        if (
-            not link
-            or not await _invite_assistant(
-                chat_id,
-                link,
-                pm,
+                parse_mode=ParseMode.HTML,
             )
-        ):
+
             return
+
+        if not status:
+
+            link = await _get_invite(chat_id)
+
+            if (
+                not link
+                or not await _invite_assistant(
+                    chat_id,
+                    link,
+                    pm,
+                )
+            ):
+                return
 
     # ─────────────────────────────────────────
     # NORMALISE YOUTU.BE
@@ -483,11 +505,8 @@ async def _process_play(
 
             return
 
-        req = (
-            message.from_user.first_name
-            if message.from_user
-            else "Unknown"
-        )
+        req    = message.from_user.first_name if message.from_user else "Unknown"
+        req_id = message.from_user.id if message.from_user else 0
 
         first_was_empty = (
             queue_size(chat_id) == 0
@@ -506,10 +525,9 @@ async def _process_play(
                     "duration_seconds": iso_to_sec(
                         item["duration"]
                     ),
-                    "requester": req,
-                    "thumbnail": item[
-                        "thumbnail"
-                    ],
+                    "requester":    req,
+                    "requester_id": req_id,   # DB tracking
+                    "thumbnail": item["thumbnail"],
                 },
             )
 
@@ -583,21 +601,17 @@ async def _process_play(
 
         return
 
-    req = (
-        message.from_user.first_name
-        if message.from_user
-        else "Unknown"
-    )
+    req    = message.from_user.first_name if message.from_user else "Unknown"
+    req_id = message.from_user.id if message.from_user else 0
 
     song = {
-        "url": url,
-        "title": title,
-        "duration": iso_to_human(
-            dur_iso
-        ),
+        "url":              url,
+        "title":            title,
+        "duration":         iso_to_human(dur_iso),
         "duration_seconds": secs,
-        "requester": req,
-        "thumbnail": thumb,
+        "requester":        req,
+        "requester_id":     req_id,   # DB tracking
+        "thumbnail":        thumb,
     }
 
     pos = add_to_queue(
