@@ -20,10 +20,6 @@ _db = None
 
 
 def start_mongo() -> bool:
-    """
-    Connect to MongoDB. Call this once at startup.
-    Returns True on success, False on failure.
-    """
     global _client, _db
 
     if not config.MONGO_DB_URL:
@@ -32,7 +28,6 @@ def start_mongo() -> bool:
 
     try:
         _client = MongoClient(config.MONGO_DB_URL, serverSelectionTimeoutMS=5000)
-        # Force a connection to verify it works
         _client.admin.command("ping")
         _db = _client["ShizuMusic"]
         logger.info("✅ MongoDB connected successfully.")
@@ -52,7 +47,6 @@ def start_mongo() -> bool:
 
 
 def get_db():
-    """Return the database object (or None if not connected)."""
     return _db
 
 
@@ -213,3 +207,61 @@ def get_total_plays() -> int:
         return 0
     except Exception:
         return 0
+
+
+# ── Broadcast Chats ────────────────────────────────────────────────────────────
+# start.py wala alag MongoClient hata ke yahan le aaya
+# broadcast_col → database.py to import karo
+
+def add_broadcast_chat(chat_id: int, chat_type: str) -> None:
+    """
+    chat_type: "private" ya "group"
+    Sirf naya chat add karda hai, duplicate nahi painda.
+    """
+    col = _col("broadcast")
+    if col is None:
+        return
+    try:
+        col.update_one(
+            {"_id": chat_id},
+            {"$set": {"_id": chat_id, "chat_id": chat_id, "type": chat_type}},
+            upsert=True,
+        )
+    except Exception as e:
+        logger.error(f"[DB] add_broadcast_chat: {e}")
+
+
+def get_broadcast_chats() -> list:
+    """Return list of all broadcast chat dicts: {chat_id, type}"""
+    col = _col("broadcast")
+    if col is None:
+        return []
+    try:
+        return list(col.find({}))
+    except Exception:
+        return []
+
+
+def get_broadcast_count() -> dict:
+    """Return total count split by type."""
+    col = _col("broadcast")
+    if col is None:
+        return {"total": 0, "private": 0, "groups": 0}
+    try:
+        total   = col.count_documents({})
+        private = col.count_documents({"type": "private"})
+        groups  = col.count_documents({"type": "group"})
+        return {"total": total, "private": private, "groups": groups}
+    except Exception:
+        return {"total": 0, "private": 0, "groups": 0}
+
+
+def remove_broadcast_chat(chat_id: int) -> None:
+    """Remove a chat from broadcast list (e.g. bot was kicked)."""
+    col = _col("broadcast")
+    if col is None:
+        return
+    try:
+        col.delete_one({"_id": chat_id})
+    except Exception as e:
+        logger.error(f"[DB] remove_broadcast_chat: {e}")
