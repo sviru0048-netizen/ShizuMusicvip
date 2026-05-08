@@ -3,12 +3,21 @@ ShizuMusic/modules/start.py
 /start command — welcome message for PM and groups.
 """
 
+import random
+
 from pyrogram import filters
 from pyrogram.enums import ChatType, ParseMode
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 import config
 from ShizuMusic import bot
+
+EFFECT_ID = [
+    5046509860389126442,
+    5107584321108051014,
+    5104841245755180586,
+    5159385139981059251,
+]
 
 
 @bot.on_message(filters.command("start"))
@@ -65,6 +74,7 @@ async def start_handler(_, message: Message) -> None:
             caption=caption,
             parse_mode=ParseMode.HTML,
             reply_markup=kb,
+            message_effect_id=random.choice(EFFECT_ID),
         )
 
         # ── Broadcast DB save ─────────────────────────────────────────────────
