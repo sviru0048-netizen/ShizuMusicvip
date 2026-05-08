@@ -1,7 +1,11 @@
-"""
-ShizuMusic/utils/permissions.py
-Admin and owner privilege checks.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 from typing import Union
 
 from pyrogram.enums import ChatMemberStatus, ChatType
