@@ -1,8 +1,10 @@
-"""
-ShizuMusic/modules/resume.py
-
-/resume command — resume paused stream.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
 
 from pyrogram import filters
 from pyrogram.enums import ParseMode
