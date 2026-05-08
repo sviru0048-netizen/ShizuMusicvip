@@ -1,6 +1,7 @@
 # ShizuMusic/modules/__init__.py
 # Add new module names here to auto-load them on startup.
 ALL_MODULES = [
+    "bot",
     "play",
     "pause",
     "resume",
