@@ -187,7 +187,11 @@ screen -r shizu
 - A userbot/assistant account (for VC streaming)
 
 ---
+## 📜 License
 
+This project is licensed under the [MIT License](https://github.com/Badmunda05/ShizuMusic/blob/main/LICENSE) © 2026 ShizuMusic™
+
+---
 <div align="center">
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
