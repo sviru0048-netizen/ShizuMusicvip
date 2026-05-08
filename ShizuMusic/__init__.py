@@ -1,6 +1,6 @@
 """
 ShizuMusic/__init__.py
-Bot client, assistant userbot, and PyTgCalls initialization.
+Bot client, assistant userbot, and PyTgCalls initialization..
 """
 import logging
 import time
