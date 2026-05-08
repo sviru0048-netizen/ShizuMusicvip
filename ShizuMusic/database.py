@@ -1,8 +1,10 @@
-"""
-ShizuMusic/database.py
-MongoDB connection and all database helpers.
-All MongoDB logic lives here — import from anywhere.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
 
 import logging
 from typing import Optional
