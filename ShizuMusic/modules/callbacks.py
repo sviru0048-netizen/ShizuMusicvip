@@ -1,7 +1,11 @@
-"""
-ShizuMusic/modules/callbacks.py
-Inline button callbacks — pause, resume, skip, stop, clear, help, noop.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 import asyncio
 
 from pyrogram.enums import ParseMode
