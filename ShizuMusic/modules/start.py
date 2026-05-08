@@ -2,17 +2,13 @@
 ShizuMusic/modules/start.py
 /start command — welcome message for PM and groups.
 """
-from pymongo import MongoClient
+
 from pyrogram import filters
 from pyrogram.enums import ChatType, ParseMode
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 import config
 from ShizuMusic import bot
-
-_mongo        = MongoClient(config.MONGO_DB_URL)
-_db           = _mongo["ShizuMusic"]
-broadcast_col = _db["broadcast"]
 
 
 @bot.on_message(filters.command("start"))
@@ -22,7 +18,21 @@ async def start_handler(_, message: Message) -> None:
     chat_id   = message.chat.id
     chat_type = message.chat.type
 
+    # ── DB ────────────────────────────────────────────────────────────────────
+    try:
+        from ShizuMusic.database import (
+            add_broadcast_chat,
+            add_served_chat,
+            add_served_user,
+        )
+        add_served_user(uid)
+        add_served_chat(chat_id)
+    except Exception:
+        add_broadcast_chat = None
+
+    # ── PRIVATE ───────────────────────────────────────────────────────────────
     if chat_type == ChatType.PRIVATE:
+
         caption = (
             "<b>╭────────────────────▣</b>\n"
             f"<b>│❍ нєу</b> <a href='tg://user?id={uid}'>{name}</a>, 🥀\n"
@@ -49,15 +59,36 @@ async def start_handler(_, message: Message) -> None:
                 InlineKeyboardButton("🍡 sᴏᴜʀᴄᴇ 🍡", url="https://github.com/Badmunda05/ShizuMusic/fork"),
             ],
         ])
+
         await message.reply_animation(
             config.START_ANIMATION,
             caption=caption,
             parse_mode=ParseMode.HTML,
             reply_markup=kb,
         )
-        if not broadcast_col.find_one({"chat_id": chat_id}):
-            broadcast_col.insert_one({"chat_id": chat_id, "type": "private"})
 
+        # ── Broadcast DB save ─────────────────────────────────────────────────
+        try:
+            from ShizuMusic.database import add_broadcast_chat
+            add_broadcast_chat(chat_id, "private")
+        except Exception:
+            pass
+
+        # ── LOGGER_ID — PM start notification ────────────────────────────────
+        if config.LOGGER_ID:
+            try:
+                await bot.send_message(
+                    config.LOGGER_ID,
+                    "<b>#ɴᴇᴡᴜsᴇʀ ꜱᴛᴀʀᴛᴇᴅ</b>\n\n"
+                    f"<b>❍ ɴᴀᴍᴇ :</b> <a href='tg://user?id={uid}'>{name}</a>\n"
+                    f"<b>❍ ɪᴅ    :</b> <code>{uid}</code>\n"
+                    f"<b>❍ ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username or 'N/A'}",
+                    parse_mode=ParseMode.HTML,
+                )
+            except Exception:
+                pass
+
+    # ── GROUP ─────────────────────────────────────────────────────────────────
     else:
         chat_title = message.chat.title or "ᴛʜɪs ᴄʜᴀᴛ"
         caption = (
@@ -73,11 +104,17 @@ async def start_handler(_, message: Message) -> None:
             ],
             [InlineKeyboardButton("🏩 ʜᴇʟᴩ ᴧиᴅ ᴄᴏᴍᴍᴧɴᴅs 🏩", callback_data="show_help")],
         ])
+
         await message.reply_animation(
             config.START_ANIMATION,
             caption=caption,
             parse_mode=ParseMode.HTML,
             reply_markup=kb,
         )
-        if not broadcast_col.find_one({"chat_id": chat_id}):
-            broadcast_col.insert_one({"chat_id": chat_id, "type": "group"})
+
+        # ── Broadcast DB save ─────────────────────────────────────────────────
+        try:
+            from ShizuMusic.database import add_broadcast_chat
+            add_broadcast_chat(chat_id, "group")
+        except Exception:
+            pass
