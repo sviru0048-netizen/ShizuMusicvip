@@ -1,7 +1,11 @@
-"""
-ShizuMusic/utils/helpers.py
-Common helper functions shared across modules.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 import os
 
 
