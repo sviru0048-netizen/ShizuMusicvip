@@ -1,10 +1,11 @@
-"""
-ShizuMusic/modules/watcher.py
-Bot Add / Left watcher — sends notification to LOGGER_ID.
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
 
-- Bot added to a group  → #NewGroup log + admin request message
-- Bot removed/left      → #LeftGroup log
-"""
 
 import random
 
