@@ -1,10 +1,10 @@
-"""
-ShizuMusic/modules/stop.py
-
-/stop and /end   → Stop playback and clear queue.
-/clear           → Clear queue only.
-/reboot          → Reset chat voice state.
-"""
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
 
 from pyrogram import filters
 from pyrogram.enums import ParseMode
