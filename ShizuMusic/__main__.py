@@ -172,7 +172,7 @@ if __name__ == "__main__":
     loop.create_task(watchdog())
     LOGGER.info("Watchdog started")
 
-    LOGGER.info("✅ ShizuMusic is running")
+    LOGGER.info(" ShizuMusic is running")
 
     idle()
 
@@ -187,5 +187,5 @@ if __name__ == "__main__":
     except Exception:
         pass
 
-    LOGGER.info("ShizuMusic stopped.")
+    LOGGER.info("✧ ShizuMusic stopped ✧")
     
