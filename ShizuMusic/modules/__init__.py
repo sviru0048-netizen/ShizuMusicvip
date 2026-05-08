@@ -1,5 +1,11 @@
-# ShizuMusic/modules/__init__.py
-# Add new module names here to auto-load them on startup.
+# --------------------------------------------------------------------------------
+#  ShizuMusic © 2026
+#  Developed by Bad Munda ❤️
+#
+#  Unauthorized copying, editing, re-uploading or removing credits
+#  from this source code is strictly prohibited.
+# --------------------------------------------------------------------------------
+
 ALL_MODULES = [
     "bot",
     "play",
