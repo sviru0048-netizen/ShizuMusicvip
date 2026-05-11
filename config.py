@@ -16,14 +16,14 @@ MONGO_DB_URL    = os.environ["MONGO_DB_URL"]
 OWNER_ID        = int(os.environ["OWNER_ID"])
 
 # ── Optional ──────────────────────────────────────────────────────────────────
-BOT_NAME         = os.getenv("BOT_NAME", "Shizu Music")
-BOT_LINK         = os.getenv("BOT_LINK", "https://t.me/ShizuMusicBot")
-UPDATES_CHANNEL  = os.getenv("UPDATES_CHANNEL", "https://t.me/PBX_UPDATE")
-SUPPORT_GROUP    = os.getenv("SUPPORT_GROUP", "https://t.me/PBXCHATS")
+BOT_NAME         = os.getenv("BOT_NAME", "KRISH X STAR CODER MUSIC")
+BOT_LINK         = os.getenv("BOT_LINK", "https://t.me/KRISHXSTAR_MUSIC_BOT")
+UPDATES_CHANNEL  = os.getenv("UPDATES_CHANNEL", "https://t.me/KRISH_HACKER_OP")
+SUPPORT_GROUP    = os.getenv("SUPPORT_GROUP", "https://t.me/KRISH_HACKER_OP")
 LOGGER_ID        = int(os.getenv("LOGGER_ID", "0"))
-START_ANIMATION  = os.getenv("START_ANIMATION", "https://telegra.ph/file/1a3c152717eb9d2e94dc2.mp4",)
-PING_IMG_URL     = os.getenv("PING_IMG_URL", "https://files.catbox.moe/ddzvc0.jpg",)
-SESSION_NAME     = os.getenv("SESSION_NAME", "ShizuMusic")
+START_ANIMATION  = os.getenv("START_ANIMATION", "https://telegra.ph/file/your_custom_animation.mp4")
+PING_IMG_URL     = os.getenv("PING_IMG_URL", "https://telegra.ph/file/your_custom_ping.jpg")
+SESSION_NAME     = os.getenv("SESSION_NAME", "KRISHXSTAR_MUSIC")
 PORT             = int(os.getenv("PORT", 10000))
 
 # ── Limits ────────────────────────────────────────────────────────────────────
