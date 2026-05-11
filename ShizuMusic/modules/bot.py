@@ -1,13 +1,12 @@
 # --------------------------------------------------------------------------------
-#  ShizuMusic © 2026
-#  Developed by Bad Munda ❤️
+#  KRISH X STAR CODER © 2026
+#  Developed by KRISH X STAR CODER ❤️
 #
 #  Unauthorized copying, editing, re-uploading or removing credits
 #  from this source code is strictly prohibited.
 # --------------------------------------------------------------------------------
 
 import random
-
 from pyrogram import filters
 from pyrogram.errors import ChatAdminRequired
 from pyrogram.enums import ParseMode
@@ -22,15 +21,12 @@ from ShizuMusic.database import (
     remove_served_chat,
 )
 
-# ── Left notification photos (random pick) ────────────────────────────────────
+# ── Custom Left notification photos ───────────────────────────────────────────
 LEFT_PHOTOS = [
-    "https://telegra.ph/file/1949480f01355b4e87d26.jpg",
-    "https://telegra.ph/file/3ef2cc0ad2bc548bafb30.jpg",
-    "https://telegra.ph/file/a7d663cd2de689b811729.jpg",
-    "https://telegra.ph/file/6f19dc23847f5b005e922.jpg",
-    "https://telegra.ph/file/2973150dd62fd27a3a6ba.jpg",
+    "https://telegra.ph/file/your_custom_photo1.jpg",
+    "https://telegra.ph/file/your_custom_photo2.jpg",
+    "https://telegra.ph/file/your_custom_photo3.jpg",
 ]
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # BOT ADDED TO GROUP
@@ -47,32 +43,32 @@ async def bot_added_watcher(_, message: Message) -> None:
             if member.id != me.id:
                 continue
 
-            # ── DB update ─────────────────────────────────────────────────────
             add_served_chat(chat_id)
             add_broadcast_chat(chat_id, "group")
 
-            # ── Who added the bot? ────────────────────────────────────────────
             added_by = message.from_user
-            added_by_mention = added_by.mention if added_by else "ᴜɴᴋɴᴏᴡɴ"
+            added_by_mention = added_by.mention if added_by else "Unknown"
 
-            # ── Admin request message in group ────────────────────────────────
             admin_request_text = (
                 "<b>╭──────────────────────▣</b>\n"
-                "<b>│❍ ᴛʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ! 🥀</b>\n"
+                "<b>│❍ Thanks for adding me! 🥀</b>\n"
                 "<b>├──────────────────────▣</b>\n"
-                "<b>│❍ ᴘʟᴇᴀsᴇ ᴍᴀᴋᴇ ᴍᴇ ᴀɴ ᴀᴅᴍɪɴ</b>\n"
-                "<b>│  ᴡɪᴛʜ ᴛʜᴇsᴇ ᴘᴇʀᴍɪssɪᴏɴs:</b>\n"
+                "<b>│❍ Please make me an Admin</b>\n"
+                "<b>│  with these permissions:</b>\n"
                 "<b>├──────────────────────▣</b>\n"
-                "<b>│ ❍ ᴅᴇʟᴇᴛᴇ ᴍᴇssᴀɢᴇs</b>\n"
-                "<b>│ ❍ ᴍᴀɴᴀɢᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs</b>\n"
-                "<b>│ ❍ ɪɴᴠɪᴛᴇ ᴜsᴇʀs</b>\n"
+                "<b>│ ❍ Delete Messages</b>\n"
+                "<b>│ ❍ Manage Video Chats</b>\n"
+                "<b>│ ❍ Invite Users</b>\n"
                 "<b>├──────────────────────▣</b>\n"
-                "<b>│❍ ᴡɪᴛʜᴏᴜᴛ ᴀᴅᴍɪɴ ᴘᴇʀᴍs</b>\n"
-                "<b>│  sᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs ᴡᴏɴ'ᴛ ᴡᴏʀᴋ! 🚫</b>\n"
-                "<b>╰──────────────────────▣</b>"
+                "<b>│❍ Without admin perms</b>\n"
+                "<b>│  some features won’t work 🚫</b>\n"
+                "<b>╰──────────────────────▣</b>\n"
+                "<b>Powered by KRISH X STAR CODER</b>\n"
+                "<b>Owner: https://t.me/KRISH_HACKER_OWNER</b>\n"
+                "<b>Support: https://t.me/KRISH_HACKER_OP</b>"
             )
             admin_kb = InlineKeyboardMarkup([
-                [InlineKeyboardButton("⚡ ᴍᴀᴋᴇ ᴍᴇ ᴀᴅᴍɪɴ ⚡", url=f"tg://user?id={me.id}")]
+                [InlineKeyboardButton("⚡ Make Me Admin ⚡", url=f"tg://user?id={me.id}")]
             ])
             try:
                 await message.reply_text(
@@ -80,70 +76,6 @@ async def bot_added_watcher(_, message: Message) -> None:
                     parse_mode=ParseMode.HTML,
                     reply_markup=admin_kb,
                 )
-            except Exception:
-                pass
-
-            # ── Log to LOGGER_ID ──────────────────────────────────────────────
-            if not config.LOGGER_ID:
-                return
-
-            try:
-                invite_link = await bot.export_chat_invite_link(chat_id)
-                link_text = f"<a href='{invite_link}'>ɢᴇᴛ ʟɪɴᴋ</a>"
-            except (ChatAdminRequired, Exception):
-                link_text = "ɴᴏ ʟɪɴᴋ"
-
-            try:
-                count = await bot.get_chat_members_count(chat_id)
-            except Exception:
-                count = "N/A"
-
-            username = f"@{chat.username}" if chat.username else "ᴘʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴘ"
-
-            chat_photo = None
-            try:
-                if chat.photo:
-                    chat_photo = await bot.download_media(
-                        chat.photo.big_file_id,
-                        file_name=f"grppp_{chat_id}.png",
-                    )
-            except Exception:
-                chat_photo = None
-
-            log_text = (
-                "<b>📝 #ɴᴇᴡɢʀᴏᴜᴘ — ʙᴏᴛ ᴀᴅᴅᴇᴅ!</b>\n\n"
-                f"<b>📌 ᴄʜᴀᴛ ɴᴀᴍᴇ  :</b> {chat.title}\n"
-                f"<b>🍂 ᴄʜᴀᴛ ɪᴅ    :</b> <code>{chat_id}</code>\n"
-                f"<b>🔐 ᴜsᴇʀɴᴀᴍᴇ   :</b> {username}\n"
-                f"<b>🖇️ ɢʀᴏᴜᴘ ʟɪɴᴋ  :</b> {link_text}\n"
-                f"<b>📈 ᴍᴇᴍʙᴇʀs    :</b> {count}\n"
-                f"<b>🤝 ᴀᴅᴅᴇᴅ ʙʏ   :</b> {added_by_mention}"
-            )
-
-            log_kb = InlineKeyboardMarkup([
-                [InlineKeyboardButton(
-                    f"👤 {added_by.first_name if added_by else 'ᴜsᴇʀ'}",
-                    user_id=added_by.id if added_by else config.OWNER_ID,
-                )]
-            ]) if added_by else None
-
-            try:
-                if chat_photo:
-                    await bot.send_photo(
-                        config.LOGGER_ID,
-                        photo=chat_photo,
-                        caption=log_text,
-                        parse_mode=ParseMode.HTML,
-                        reply_markup=log_kb,
-                    )
-                else:
-                    await bot.send_message(
-                        config.LOGGER_ID,
-                        log_text,
-                        parse_mode=ParseMode.HTML,
-                        reply_markup=log_kb,
-                        disable_web_page_preview=True,
-                    )
             except Exception:
                 pass
 
@@ -169,26 +101,21 @@ async def bot_left_watcher(_, message: Message) -> None:
         chat    = message.chat
         chat_id = chat.id
 
-        # ── Remove from DB ────────────────────────────────────────────────────
         remove_served_chat(chat_id)
         remove_broadcast_chat(chat_id)
 
-        # ── Who removed the bot? ──────────────────────────────────────────────
         removed_by = message.from_user
-        removed_by_mention = removed_by.mention if removed_by else "ᴜɴᴋɴᴏᴡɴ ᴜsᴇʀ"
-
-        username = f"@{chat.username}" if chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
-
-        if not config.LOGGER_ID:
-            return
+        removed_by_mention = removed_by.mention if removed_by else "Unknown User"
 
         left_text = (
-            "<b>✫ #ʟᴇғᴛɢʀᴏᴜᴘ ✫</b>\n\n"
-            f"<b>📌 ᴄʜᴀᴛ ᴛɪᴛʟᴇ   :</b> {chat.title}\n"
-            f"<b>🍂 ᴄʜᴀᴛ ɪᴅ     :</b> <code>{chat_id}</code>\n"
-            f"<b>🔐 ᴜsᴇʀɴᴀᴍᴇ    :</b> {username}\n"
-            f"<b>👢 ʀᴇᴍᴏᴠᴇᴅ ʙʏ  :</b> {removed_by_mention}\n"
-            f"<b>🤖 ʙᴏᴛ          :</b> @{me.username}"
+            "<b>✫ Bot Removed ✫</b>\n\n"
+            f"<b>📌 Chat Title :</b> {chat.title}\n"
+            f"<b>🍂 Chat ID    :</b> <code>{chat_id}</code>\n"
+            f"<b>👢 Removed By :</b> {removed_by_mention}\n"
+            f"<b>🤖 Bot        :</b> @{me.username}\n\n"
+            "<b>Powered by KRISH X STAR CODER</b>\n"
+            "<b>Owner: https://t.me/KRISH_HACKER_OWNER</b>\n"
+            "<b>Support: https://t.me/KRISH_HACKER_OP</b>"
         )
 
         try:
@@ -199,14 +126,11 @@ async def bot_left_watcher(_, message: Message) -> None:
                 parse_mode=ParseMode.HTML,
             )
         except Exception:
-            try:
-                await bot.send_message(
-                    config.LOGGER_ID,
-                    left_text,
-                    parse_mode=ParseMode.HTML,
-                )
-            except Exception:
-                pass
+            await bot.send_message(
+                config.LOGGER_ID,
+                left_text,
+                parse_mode=ParseMode.HTML,
+            )
 
     except Exception as e:
         print(f"[watcher] bot_left_watcher error: {e}")
