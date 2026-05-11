@@ -1,31 +1,22 @@
 <div align="center">
 <h3 align="center">
-<img src="https://readme-typing-svg.herokuapp.com?color=00BFFF&center=true&vCenter=true&width=500&lines=🎵+SHIZUMUSIC+BOT+💕;⚡+FAST+•+SMOOTH+•+POWERFUL+⚡;🎧+TELEGRAM+VC+MUSIC+BOT+🎶">
+<img src="https://readme-typing-svg.herokuapp.com?color=00BFFF&center=true&vCenter=true&width=500&lines=🎵+KRISH+X+STAR+CODER+MUSIC+BOT+💕;⚡+FAST+•+SMOOTH+•+POWERFUL+⚡;🎧+TELEGRAM+VC+MUSIC+BOT+🎶">
 </h3>
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-  
+
 <p align="center">
-<a href="https://t.me/PBXCHATS">
-<img src="https://i.ibb.co/qYbmh3w1/x.jpg" width="600">
-</a>
+  <img src="https://copilot.microsoft.com/th/id/BCO.e0ee436f-af04-45d6-b5f8-0e264722544a.png" width="800">
 </p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-<img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&weight=900&size=36&duration=3000&pause=1000&color=00BFFF&center=true&vCenter=true&width=700&lines=🎵+ShizuMusic+Bot;First+Open-Source+VC+Music+Bot;Fast+•+Smooth+•+Powerful" alt="ShizuMusic" />
-
-<br>
 
 <p>
-  <b>First Open-Source Telegram VC Music Bot 🎵</b><br>
-  Works Fully Free on Render, Koyeb & More &nbsp;•&nbsp; Zero VPS Cost<br>
-  Fast • Smooth • Powerful<br>
-  Powered by <b>Pyrogram</b> & <b>Py-TgCalls</b><br>
-  Developed by — <b>PBX</b>
+<b>Private Telegram VC Music Bot 🎵</b><br>
+Fast • Smooth • Powerful<br>
+Powered by <b>Pyrogram</b> & <b>Py-TgCalls</b><br>
+Developed by — <b>KRISH X STAR CODER</b>
 </p>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
 </div>
 
 ---
@@ -34,21 +25,11 @@
 
 ## 👤 Developer
 
-<img src="https://avatars.githubusercontent.com/Badmunda05" width="110" style="border-radius:50%;" /><br>
-**PBX** — Developer of ShizuMusic<br>
+<img src="https://avatars.githubusercontent.com/KRISH-HACKER-OP" width="110" style="border-radius:50%;" /><br>
+**KRISH X STAR CODER** — Developer of KRISHXSTAR-MUSIC<br>
 
-[![Telegram](https://img.shields.io/badge/Telegram-PBX-%2326A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/PBX_BOT)
-[![GitHub](https://img.shields.io/badge/GitHub-Badmunda05-%23181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Badmunda05)
-
-</div>
-
----
-
-<div align="center">
-
-## 📊 Visitors
-
-<img src="https://profile-counter.glitch.me/Badmunda05/count.svg" />
+[![Telegram](https://img.shields.io/badge/Telegram-KRISH_HACKER_OWNER-%2326A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/KRISH_HACKER_OWNER)
+[![GitHub](https://img.shields.io/badge/GitHub-KRISH--HACKER--OP-%23181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KRISH-HACKER-OP)
 
 </div>
 
@@ -56,14 +37,14 @@
 
 ## ✨ Features
 
-- 🎵 High Quality VC Music Streaming
-- 🔁 Queue System with Auto-Play
-- ⏸ Pause / Resume / Skip / Stop Controls
-- 📊 Live Progress Bar in Chat
-- 🌐 Works on Render, Koyeb, Heroku & VPS — Free!
-- ⚡ Fast & Lightweight — Pyrogram + Py-TgCalls
-- 🎧 Audio Quality Control
-- 🔒 Admin-Only Controls
+- 🎵 High Quality VC Music Streaming  
+- 🔁 Queue System with Auto‑Play  
+- ⏸ Pause / Resume / Skip / Stop Controls  
+- 📊 Live Progress Bar in Chat  
+- 🌐 Works on Render, Koyeb, Heroku & Railway  
+- ⚡ Fast & Lightweight — Pyrogram + Py‑TgCalls  
+- 🎧 Audio Quality Control  
+- 🔒 Admin‑Only Controls  
 
 ---
 
@@ -72,34 +53,54 @@
 <div align="center">
 
 ### ☁️ Heroku
-
-[![Deploy on Heroku](https://img.shields.io/badge/Deploy%20On%20Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/new?template=https://github.com/Badmunda05/ShizuMusic)
-
----
+[![Deploy on Heroku](https://img.shields.io/badge/Deploy%20On%20Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/new?template=https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC)
 
 ### 🟢 Koyeb
-
-[![Deploy on Koyeb](https://img.shields.io/badge/Deploy%20On%20Koyeb-121212?style=for-the-badge&logo=koyeb&logoColor=white)](https://app.koyeb.com/deploy?type=git&repository=github.com/Badmunda05/ShizuMusic&branch=main&name=shizumusic)
-
----
+[![Deploy on Koyeb](https://img.shields.io/badge/Deploy%20On%20Koyeb-121212?style=for-the-badge&logo=koyeb&logoColor=white)](https://app.koyeb.com/deploy?type=git&repository=github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC&branch=main&name=krishxstar-music)
 
 ### 🟣 Render
-
-[![Deploy on Render](https://img.shields.io/badge/Deploy%20On%20Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/deploy?repo=https://github.com/Badmunda05/ShizuMusic)
-
----
+[![Deploy on Render](https://img.shields.io/badge/Deploy%20On%20Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/deploy?repo=https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC)
 
 ### 🔵 Railway
-
-[![Deploy on Railway](https://img.shields.io/badge/Deploy%20On%20Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/new/template?template=https://github.com/Badmunda05/ShizuMusic)
+[![Deploy on Railway](https://img.shields.io/badge/Deploy%20On%20Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/new/template?template=https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC)
 
 </div>
 
 ---
 
-## 🖥️ VPS Deployment (Self-Host)
+## ⚙️ Config Variables
 
-> Recommended: Ubuntu 20.04+ / Debian 11+
+| Variable | Description |
+|-----------|-------------|
+| `API_ID` | Get from [my.telegram.org](https://my.telegram.org) |
+| `API_HASH` | Get from [my.telegram.org](https://my.telegram.org) |
+| `BOT_TOKEN` | Get from [@BotFather](https://t.me/BotFather) |
+| `STRING_SESSION` | Pyrogram assistant session |
+| `MONGO_DB_URL` | MongoDB URI |
+| `OWNER_ID` | Your Telegram user ID |
+
+---
+
+## 📦 Requirements
+
+- Python 3.10+  
+- MongoDB — Free at [mongodb.com](https://www.mongodb.com/cloud/atlas/register)  
+- Telegram API credentials — [my.telegram.org](https://my.telegram.org)  
+- Pyrogram Session String — [telegram.tools](https://telegram.tools/session-string-generator#pyrogram)  
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC/blob/main/LICENSE) © 2026 **KRISH X STAR CODER**
+
+---
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+<b>Made with ❤️ by KRISH X STAR CODER</b><br>
+[![Repo](https://img.shields.io/badge/GitHub-KRISHXSTAR--MUSIC-181717?style=for-the-badge&logo=github)](https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC)
+</div>> Recommended: Ubuntu 20.04+ / Debian 11+
 
 ```bash
 # 1. Update system
