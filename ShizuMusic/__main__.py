@@ -1,11 +1,10 @@
 # --------------------------------------------------------------------------------
-#  ShizuMusic © 2026
-#  Developed by Bad Munda ❤️
+#  KRISH X STAR CODER © 2026
+#  Developed by KRISH X STAR CODER ❤️
 #
 #  Unauthorized copying, editing, re-uploading or removing credits
 #  from this source code is strictly prohibited.
 # --------------------------------------------------------------------------------
-
 
 import asyncio
 import importlib
@@ -31,20 +30,16 @@ ASSISTANT_USERNAME: str = ""
 
 _flask = Flask(__name__)
 
-
 @_flask.route("/")
 def _home():
-    return "❍ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ɪꜱ ʀᴜɴɴɪɴɢ ᴍᴀᴅᴇ ʙʏ ʙᴀᴅᴍᴜɴᴅᴀ 💕", 200
-
+    return "❍ KRISH X STAR CODER MUSIC BOT is running ❤️", 200
 
 @_flask.route("/health")
 def _health():
     return "OK", 200
 
-
 def _run_flask() -> None:
     _flask.run(host="0.0.0.0", port=config.PORT, use_reloader=False)
-
 
 # ── Keep-Alive Ping ───────────────────────────────────────────────────────────
 
@@ -58,7 +53,6 @@ def _keep_alive() -> None:
             LOGGER.warning(f"Keep-alive ping failed: {e}")
         time.sleep(300)
 
-
 # ── Startup notification ──────────────────────────────────────────────────────
 
 async def _notify_owner(me, assistant_username: str) -> None:
@@ -67,13 +61,14 @@ async def _notify_owner(me, assistant_username: str) -> None:
     try:
         await bot.send_message(
             config.LOGGER_ID,
-            f"🎵 ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ꜱᴛᴀʀᴛᴇᴅ💕\n\n"
-            f"❍ ʙᴏᴛ : @{me.username}\n"
-            f"❍ ᴀꜱꜱɪꜱᴛᴀɴᴛ : @{assistant_username}",
+            f"🎵 KRISH X STAR CODER MUSIC BOT Started ❤️\n\n"
+            f"❍ Bot : @{me.username}\n"
+            f"❍ Assistant : @{assistant_username}\n"
+            f"❍ Owner : https://t.me/KRISH_HACKER_OWNER\n"
+            f"❍ Support : https://t.me/KRISH_HACKER_OP"
         )
     except Exception as e:
         LOGGER.warning(f"Logger Notification Error : {e}")
-
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -128,14 +123,14 @@ if __name__ == "__main__":
     try:
         bot.set_bot_commands(
             [
-                BotCommand("start",  "✧ sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ✧"),
-                BotCommand("help",   "✧ ɢᴇᴛ ʜᴇʟᴘ ᴍᴇɴᴜ ✧"),
-                BotCommand("play",   "✧ ᴘʟᴀʏ ᴀ sᴏɴɢ ✧"),
-                BotCommand("pause",  "✧ ᴘᴀᴜsᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
-                BotCommand("resume", "✧ ʀᴇsᴜᴍᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
-                BotCommand("skip",   "✧ sᴋɪᴘ sᴏɴɢ ✧"),
-                BotCommand("stop",   "✧ sᴛᴏᴘ & ᴄʟᴇᴀʀ ✧"),
-                BotCommand("ping",   "✧ ʙᴏᴛ sᴛᴀᴛs ✧"),
+                BotCommand("start",  "✧ Start the bot ✧"),
+                BotCommand("help",   "✧ Get help menu ✧"),
+                BotCommand("play",   "✧ Play a song ✧"),
+                BotCommand("pause",  "✧ Pause playback ✧"),
+                BotCommand("resume", "✧ Resume playback ✧"),
+                BotCommand("skip",   "✧ Skip song ✧"),
+                BotCommand("stop",   "✧ Stop & clear ✧"),
+                BotCommand("ping",   "✧ Bot stats ✧"),
             ]
         )
         LOGGER.info("Bot commands set")
@@ -176,7 +171,7 @@ if __name__ == "__main__":
     loop.create_task(watchdog())
     LOGGER.info("Watchdog started")
 
-    LOGGER.info(" ShizuMusic is running")
+    LOGGER.info("KRISH X STAR CODER MUSIC BOT is running")
 
     idle()
 
@@ -191,5 +186,4 @@ if __name__ == "__main__":
     except Exception:
         pass
 
-    LOGGER.info("✧ ShizuMusic stopped ✧")
-    
+    LOGGER.info("✧ KRISH X STAR CODER MUSIC BOT stopped ✧")
