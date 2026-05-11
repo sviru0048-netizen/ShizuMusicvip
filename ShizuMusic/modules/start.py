@@ -1,13 +1,12 @@
 # --------------------------------------------------------------------------------
-#  ShizuMusic © 2026
-#  Developed by Bad Munda ❤️
+#  KRISH X STAR CODER © 2026
+#  Developed by Krish ❤️
 #
 #  Unauthorized copying, editing, re-uploading or removing credits
 #  from this source code is strictly prohibited.
 # --------------------------------------------------------------------------------
 
 import random
-
 from pyrogram import filters
 from pyrogram.enums import ChatType, ParseMode
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
@@ -22,7 +21,6 @@ EFFECT_ID = [
     5159385139981059251,
 ]
 
-
 @bot.on_message(filters.command("start"))
 async def start_handler(_, message: Message) -> None:
     uid       = message.from_user.id
@@ -30,7 +28,6 @@ async def start_handler(_, message: Message) -> None:
     chat_id   = message.chat.id
     chat_type = message.chat.type
 
-    # ── DB ────────────────────────────────────────────────────────────────────
     try:
         from ShizuMusic.database import (
             add_broadcast_chat,
@@ -42,33 +39,31 @@ async def start_handler(_, message: Message) -> None:
     except Exception:
         add_broadcast_chat = None
 
-    # ── PRIVATE ───────────────────────────────────────────────────────────────
     if chat_type == ChatType.PRIVATE:
-
         caption = (
             "<b>╭────────────────────▣</b>\n"
-            f"<b>│❍ ʜᴇʏ</b> <a href='tg://user?id={uid}'>{name}</a>, 🥀\n"
-            f"<b>│❍ ᴛʜɪs ɪs {config.BOT_NAME} !</b>\n"
+            f"<b>│❍ Hey</b> <a href='tg://user?id={uid}'>{name}</a>, 🥀\n"
+            f"<b>│❍ This is {config.BOT_NAME} !</b>\n"
             "<b>├────────────────────▣</b>\n"
-            "<b>│❍ ᴀ ғᴀsᴛ & ᴘᴏᴡᴇʀғᴜʟ ᴛᴇʟᴇɢʀᴀᴍ</b>\n"
-            "<b>│ ᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ ʙᴏᴛ ᴡɪᴛʜ</b>\n"
-            "<b>│ sᴏᴍᴇ ᴀᴡᴇsᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs.</b>\n"
+            "<b>│❍ A fast & powerful Telegram</b>\n"
+            "<b>│ Music Player Bot with</b>\n"
+            "<b>│ awesome features.</b>\n"
             "<b>├────────────────────▣</b>\n"
-            "<b>│❍ ᴄʟɪᴄᴋ ʜᴇʟᴘ ғᴏʀ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs.</b>\n"
+            "<b>│❍ Click Help for all commands.</b>\n"
             "<b>├────────────────────▣</b>\n"
-            f"<b>│❍ ᴘᴏᴡᴇʀᴇᴅ ʙʏ » <a href='t.me/PBXCHATS'>sʜɪᴢᴜ-ᴍᴜsɪᴄ™</a></b>\n"
+            f"<b>│❍ Powered by » <a href='{config.SUPPORT_GROUP}'>KRISH X STAR CODER</a></b>\n"
             "<b>╰────────────────────▣</b>"
         )
         kb = InlineKeyboardMarkup([
-            [InlineKeyboardButton("⛩️ ᴧᴅᴅ мᴇ ʙᴧʙʏ ⛩️", url=f"{config.BOT_LINK}?startgroup=true")],
+            [InlineKeyboardButton("⛩️ Add Me Baby ⛩️", url=f"{config.BOT_LINK}?startgroup=true")],
             [
-                InlineKeyboardButton("🍬 sᴜᴘᴘᴏʀᴛ 🍬", url=config.SUPPORT_GROUP),
-                InlineKeyboardButton("🍹 ᴜᴘᴅᴀᴛᴇs 🍹",  url=config.UPDATES_CHANNEL),
+                InlineKeyboardButton("🍬 Support 🍬", url=config.SUPPORT_GROUP),
+                InlineKeyboardButton("🍹 Updates 🍹", url=config.UPDATES_CHANNEL),
             ],
-            [InlineKeyboardButton("🏩 ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs 🏩", callback_data="show_help")],
+            [InlineKeyboardButton("🏩 Help & Commands 🏩", callback_data="show_help")],
             [
-                InlineKeyboardButton("🫧 ᴏᴡɴᴇʀ 🫧",  url=f"tg://user?id={config.OWNER_ID}"),
-                InlineKeyboardButton("🍡 sᴏᴜʀᴄᴇ 🍡", url="https://github.com/Badmunda05/ShizuMusic/fork"),
+                InlineKeyboardButton("🫧 Owner 🫧", url=f"tg://user?id={config.OWNER_ID}"),
+                InlineKeyboardButton("🍡 Source 🍡", url="https://github.com/KRISH-HACKER-OP/KRISHXSTAR-MUSIC"),
             ],
         ])
 
@@ -80,42 +75,39 @@ async def start_handler(_, message: Message) -> None:
             message_effect_id=random.choice(EFFECT_ID),
         )
 
-        # ── Broadcast DB save ─────────────────────────────────────────────────
         try:
             from ShizuMusic.database import add_broadcast_chat
             add_broadcast_chat(chat_id, "private")
         except Exception:
             pass
 
-        # ── LOGGER_ID — PM start notification ────────────────────────────────
         if config.LOGGER_ID:
             try:
                 await bot.send_message(
                     config.LOGGER_ID,
-                    "<b>#ɴᴇᴡᴜsᴇʀ sᴛᴀʀᴛᴇᴅ</b>\n\n"
-                    f"<b>❍ ɴᴀᴍᴇ     :</b> <a href='tg://user?id={uid}'>{name}</a>\n"
-                    f"<b>❍ ɪᴅ       :</b> <code>{uid}</code>\n"
-                    f"<b>❍ ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username or 'N/A'}",
+                    "<b>#NewUser Started</b>\n\n"
+                    f"<b>Name :</b> <a href='tg://user?id={uid}'>{name}</a>\n"
+                    f"<b>ID :</b> <code>{uid}</code>\n"
+                    f"<b>Username :</b> @{message.from_user.username or 'N/A'}",
                     parse_mode=ParseMode.HTML,
                 )
             except Exception:
                 pass
 
-    # ── GROUP ─────────────────────────────────────────────────────────────────
     else:
-        chat_title = message.chat.title or "ᴛʜɪs ᴄʜᴀᴛ"
+        chat_title = message.chat.title or "This Chat"
         caption = (
-            f"❍ ʜᴇʏ <a href='tg://user?id={uid}'>{name}</a>,\n"
-            f"ᴛʜɪs ɪs <b>{config.BOT_NAME}</b>\n\n"
-            f"ᴛʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ ɪɴ <b>{chat_title}</b>.\n"
-            f"{name} ᴄᴀɴ ɴᴏᴡ ᴘʟᴀʏ sᴏɴɢs ʜᴇʀᴇ."
+            f"❍ Hey <a href='tg://user?id={uid}'>{name}</a>,\n"
+            f"This is <b>{config.BOT_NAME}</b>\n\n"
+            f"Thanks for adding me in <b>{chat_title}</b>.\n"
+            f"{name} can now play songs here."
         )
         kb = InlineKeyboardMarkup([
             [
-                InlineKeyboardButton("⛩️ ᴧᴅᴅ мᴇ ʙᴧʙʏ ⛩️", url=f"{config.BOT_LINK}?startgroup=true"),
-                InlineKeyboardButton("🍬 sᴜᴘᴘᴏʀᴛ 🍬", url=config.SUPPORT_GROUP),
+                InlineKeyboardButton("⛩️ Add Me Baby ⛩️", url=f"{config.BOT_LINK}?startgroup=true"),
+                InlineKeyboardButton("🍬 Support 🍬", url=config.SUPPORT_GROUP),
             ],
-            [InlineKeyboardButton("🏩 ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs 🏩", callback_data="show_help")],
+            [InlineKeyboardButton("🏩 Help & Commands 🏩", callback_data="show_help")],
         ])
 
         await message.reply_animation(
@@ -125,25 +117,24 @@ async def start_handler(_, message: Message) -> None:
             reply_markup=kb,
         )
 
-        # ── Admin Request Message ─────────────────────────────────────────────
         admin_msg = (
             "<b>╭──────────────────────▣</b>\n"
-            "<b>│❍ ᴛʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ! 🥀</b>\n"
+            "<b>│❍ Thanks for adding me! 🥀</b>\n"
             "<b>├──────────────────────▣</b>\n"
-            "<b>│❍ ᴘʟᴇᴀsᴇ ᴍᴀᴋᴇ ᴍᴇ ᴀɴ ᴀᴅᴍɪɴ</b>\n"
-            "<b>│  ᴡɪᴛʜ ᴛʜᴇsᴇ ᴘᴇʀᴍɪssɪᴏɴs:</b>\n"
+            "<b>│❍ Please make me an admin</b>\n"
+            "<b>│ with these permissions:</b>\n"
             "<b>├──────────────────────▣</b>\n"
-            "<b>│ ❍ ᴅᴇʟᴇᴛᴇ ᴍᴇssᴀɢᴇs</b>\n"
-            "<b>│ ❍ ᴍᴀɴᴀɢᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛs</b>\n"
-            "<b>│ ❍ ɪɴᴠɪᴛᴇ ᴜsᴇʀs</b>\n"
+            "<b>│ ❍ Delete messages</b>\n"
+            "<b>│ ❍ Manage video chats</b>\n"
+            "<b>│ ❍ Invite users</b>\n"
             "<b>├──────────────────────▣</b>\n"
-            "<b>│❍ ᴡɪᴛʜᴏᴜᴛ ᴀᴅᴍɪɴ ᴘᴇʀᴍs</b>\n"
-            "<b>│  sᴏᴍᴇ ғᴇᴀᴛᴜʀᴇs ᴡᴏɴ'ᴛ ᴡᴏʀᴋ! 🚫</b>\n"
+            "<b>│❍ Without admin perms</b>\n"
+            "<b>│ some features won't work! 🚫</b>\n"
             "<b>╰──────────────────────▣</b>"
         )
         admin_kb = InlineKeyboardMarkup([
             [InlineKeyboardButton(
-                "⚡ ᴍᴀᴋᴇ ᴍᴇ ᴀᴅᴍɪɴ ⚡",
+                "⚡ Make Me Admin ⚡",
                 url=f"tg://user?id={(await bot.get_me()).id}"
             )]
         ])
@@ -156,7 +147,6 @@ async def start_handler(_, message: Message) -> None:
         except Exception:
             pass
 
-        # ── Broadcast DB save ─────────────────────────────────────────────────
         try:
             from ShizuMusic.database import add_broadcast_chat
             add_broadcast_chat(chat_id, "group")
