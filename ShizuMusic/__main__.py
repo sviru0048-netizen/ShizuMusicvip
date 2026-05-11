@@ -1,11 +1,10 @@
 # --------------------------------------------------------------------------------
-#  ShizuMusic © 2026
-#  Developed by Bad Munda ❤️
+#  KRISH X STAR CODER © 2026
+#  Developed by KRISH X STAR CODER ❤️
 #
 #  Unauthorized copying, editing, re-uploading or removing credits
 #  from this source code is strictly prohibited.
 # --------------------------------------------------------------------------------
-
 
 import asyncio
 import importlib
@@ -24,29 +23,20 @@ import config
 from ShizuMusic import LOGGER, assistant, bot, call_py
 from ShizuMusic.modules import ALL_MODULES
 
-# ── Global assistant username (used in play.py) ───────────────────────────────
 ASSISTANT_USERNAME: str = ""
-
-# ── Flask health check ────────────────────────────────────────────────────────
 
 _flask = Flask(__name__)
 
-
 @_flask.route("/")
 def _home():
-    return "❍ ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ɪꜱ ʀᴜɴɴɪɴɢ ᴍᴀᴅᴇ ʙʏ ʙᴀᴅᴍᴜɴᴅᴀ 💕", 200
-
+    return "❍ KRISH X STAR CODER Music Bot is running 💕", 200
 
 @_flask.route("/health")
 def _health():
     return "OK", 200
 
-
 def _run_flask() -> None:
     _flask.run(host="0.0.0.0", port=config.PORT, use_reloader=False)
-
-
-# ── Keep-Alive Ping ───────────────────────────────────────────────────────────
 
 def _keep_alive() -> None:
     url = os.getenv("RENDER_EXTERNAL_URL", f"http://0.0.0.0:{config.PORT}")
@@ -58,24 +48,18 @@ def _keep_alive() -> None:
             LOGGER.warning(f"Keep-alive ping failed: {e}")
         time.sleep(300)
 
-
-# ── Startup notification ──────────────────────────────────────────────────────
-
 async def _notify_owner(me, assistant_username: str) -> None:
     if not config.LOGGER_ID:
         return
     try:
         await bot.send_message(
             config.LOGGER_ID,
-            f"🎵 ꜱʜɪᴢᴜᴍᴜꜱɪᴄ ꜱᴛᴀʀᴛᴇᴅ💕\n\n"
-            f"❍ ʙᴏᴛ : @{me.username}\n"
-            f"❍ ᴀꜱꜱɪꜱᴛᴀɴᴛ : @{assistant_username}",
+            f"🎵 KRISH X STAR CODER Bot Started 💕\n\n"
+            f"❍ Bot : @{me.username}\n"
+            f"❍ Assistant : @{assistant_username}",
         )
     except Exception as e:
         LOGGER.warning(f"Logger Notification Error : {e}")
-
-
-# ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
 
@@ -128,14 +112,14 @@ if __name__ == "__main__":
     try:
         bot.set_bot_commands(
             [
-                BotCommand("start",  "✧ sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ✧"),
-                BotCommand("help",   "✧ ɢᴇᴛ ʜᴇʟᴘ ᴍᴇɴᴜ ✧"),
-                BotCommand("play",   "✧ ᴘʟᴀʏ ᴀ sᴏɴɢ ✧"),
-                BotCommand("pause",  "✧ ᴘᴀᴜsᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
-                BotCommand("resume", "✧ ʀᴇsᴜᴍᴇ ᴘʟᴀʏʙᴀᴄᴋ ✧"),
-                BotCommand("skip",   "✧ sᴋɪᴘ sᴏɴɢ ✧"),
-                BotCommand("stop",   "✧ sᴛᴏᴘ & ᴄʟᴇᴀʀ ✧"),
-                BotCommand("ping",   "✧ ʙᴏᴛ sᴛᴀᴛs ✧"),
+                BotCommand("start",  "✧ Start the KRISH X STAR CODER Bot ✧"),
+                BotCommand("help",   "✧ Get help menu ✧"),
+                BotCommand("play",   "✧ Play a song ✧"),
+                BotCommand("pause",  "✧ Pause playback ✧"),
+                BotCommand("resume", "✧ Resume playback ✧"),
+                BotCommand("skip",   "✧ Skip song ✧"),
+                BotCommand("stop",   "✧ Stop & clear ✧"),
+                BotCommand("ping",   "✧ Bot stats ✧"),
             ]
         )
         LOGGER.info("Bot commands set")
@@ -176,7 +160,7 @@ if __name__ == "__main__":
     loop.create_task(watchdog())
     LOGGER.info("Watchdog started")
 
-    LOGGER.info(" ShizuMusic is running")
+    LOGGER.info(" KRISH X STAR CODER Bot is running")
 
     idle()
 
@@ -191,5 +175,4 @@ if __name__ == "__main__":
     except Exception:
         pass
 
-    LOGGER.info("✧ ShizuMusic stopped ✧")
-    
+    LOGGER.info("✧ KRISH X STAR CODER Bot stopped ✧")
