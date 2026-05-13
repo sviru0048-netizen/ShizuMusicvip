@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------------
-#  ShizuMusic © 2026
-#  Developed by Bad Munda ❤️
+#  KrishXStarMusic © 2026
+#  Developed by KRISH X STAR CODER ❤️
 #
 #  Unauthorized copying, editing, re-uploading or removing credits
 #  from this source code is strictly prohibited.
